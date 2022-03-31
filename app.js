@@ -2,13 +2,16 @@ const express = require ( "express" );
 const path = require('path');
 const session = require('express-session');
 const bodyParser = require('body-parser')
+
+const app = express();//สร้าง object express ชื่อ app
 //defind routes
-const indexRouter = require('./routes/index');
+const homeRouter = require('./routes/homes');
 const stockRouter = require('./routes/stock_routes');
 const loginRouter = require('./routes/login');
+const indexsRouter = require('./routes/indexs');
 
-//use express
-const app = express();
+// //use express
+// const app = express();
 
 app.use(session({
 	secret: 'secret',
@@ -18,13 +21,14 @@ app.use(session({
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'publ')));
+app.use(express.static('public'));
+
 
 // Set Url
-app.use('/', indexRouter);
-app.use('/login', loginRouter);
-app.use('/stock', stockRouter);
-
+// app.use('/', loginRouter);
+app.use('/', indexsRouter);
+// app.use('/stock', stockRouter);
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -37,4 +41,4 @@ app.use(function(err, req, res, next) {
     res.render('error');
   });
 
-module.exports = app;
+  module.exports = app;

@@ -11,17 +11,17 @@ const { STATUS_CODES } = require('http');
 
 
 router.get('/', async function(req, res, next) {
-    res.render('stock', { title: 'LogIn !!'});
+    
+    res.render('login', { title: 'LogIn !!'});
 });
 
 
 // http://localhost:3000/auth
-router.post('/auth', async function(req, res) {
+router.post('/', async function(req, res) {
+    console.log('testtttt')
     req.session.loggedin = true;
-    res.status(200).send('Ok')
-    // console.log('url', req.originalUrl)
-    // console.log('Login..')
-	// Capture the input fields
+    res.render('homes', { title: 'Index'});
+ 
     // var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     // console.log('fff ', req)
 	// var username = req.body.username;
