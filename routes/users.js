@@ -12,14 +12,14 @@ router.get('/', function(req, res, next) {
     var _getJsonBody = req.body
     var _countRows = _getJsonBody.length
     // console.log(countRows)
-    res.render('./user/index', { title: 'Home User' });
+    res.render('./user/home', { title: 'Home User' });
   }else{
 
     res.send('respond with a resource');
   }
 });
 
-router.get('/sell_product', async function(req, res, next) {
+router.get('/sell', async function(req, res, next) {
   if (!req.session.loggedin) {    
     var _username = req.session.username
     var _usercode = req.session.usercode
