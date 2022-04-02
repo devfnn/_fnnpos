@@ -20,18 +20,7 @@
 
 <body id="page-top">
     <div id="wrapper">
-        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span>Depot Area</span></div>
-                </a>
-                <hr class="sidebar-divider my-0">
-                <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <% include nav %>
-                </ul>
-                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
-            </div>
-        </nav>
+        <% include nav %>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -142,70 +131,55 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6 text-nowrap">
-                                            <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label">Show&nbsp;<select class="d-inline-block form-select form-select-sm">
-                                                        <option value="10" selected="">10</option>
-                                                        <option value="25">25</option>
-                                                        <option value="50">50</option>
-                                                        <option value="100">100</option>
-                                                    </select>&nbsp;</label></div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
-                                        </div>
-                                    </div>
+                     
                                     <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
                                         <table class="table my-0" id="dataTable">
                                             <thead>
                                                 <tr class="table-primary">
-                                                    <th>ชื่อสินค้า</th>
+                                                    <th scope="col">#</th>
+                                                    <th colspan="2">ชื่อสินค้า</th>
                                                     <th class="text-center">ราคา</th>
                                                     <th class="text-center">InStock</th>
                                                 </tr>
                                             </thead>
+
+
                                             <tbody>
+
+                                         <%
+                                                if(obj.length!=0){
+                                                var i=1;
+                                                obj.forEach(function(data){
+                                          %>
                                                 <tr>
-                                                    <td><img class="rounded-circle me-2" width="50" height="50" src="../../assets/img/avatars/1310141-min_36.jpg">ก๊อตช่า ดินสอ</td>
-                                                    <td class="text-center">10</td>
-                                                    <td class="text-center">23</td>
+                                                    <th scope="row"><%= i%></th>
+                                                    <td><img class="rounded-circle me-2" width="50" height="50" src="../../assets/img/products/<%= data.ProductCode %>.pngg"></td>
+                                                    <td class="text-center"><%=data.ProductName%>: <%=data.ProductCode%></td>
+                                                    <td class="text-center"><%=data.ProductPrice%></td>
+                                                    <td class="text-center"><%=data.StockIn%></td>
                                                 </tr>
-                                                <tr>
-                                                    <td><img class="rounded-circle me-2" width="50" height="50" src="../../assets/img/avatars/6623D06-4384A60-C5085C0.png">ก๊อตช่า สตอเบอรี่</td>
-                                                    <td class="text-center">15</td>
-                                                    <td class="text-center">40</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img class="rounded-circle me-2" width="50" height="50" src="../../assets/img/avatars/menueditor_item_77c85a175870489a99b9915e6251f367_1630686696268184651.jpg">สวัสดีถั่วดำ</td>
-                                                    <td class="text-center">12</td>
-                                                    <td class="text-center">50</td>
-                                                </tr>
+                                                <%  i++; }) %>
+                                                <% } else{ %>
+                                                    <tr>
+                                                        <td colspan="5"><div align="center">No Data Found</div></td>
+                                                    </tr>
+                                                <% } %>
+
+
                                             </tbody>
+
+
                                             <tfoot>
                                                 <tr class="table-primary">
-                                                    <td><strong>ชื่อสินค้า</strong></td>
+                                                    <th scope="col">#</th>
+                                                    <td colspan="2"><strong>ชื่อสินค้า</strong></td>
                                                     <td class="text-center"><strong>ราคา</strong></td>
                                                     <td class="text-center"><strong>InStock</strong></td>
                                                 </tr>
                                             </tfoot>
                                         </table>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-auto col-md-auto mx-auto">
-                                            <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
-                                        </div>
-                                        <div class="col mx-auto">
-                                            <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                                <ul class="pagination">
-                                                    <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -236,6 +210,25 @@
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
     <script src="../../assets/js/DataTable---Fully-BSS-Editable.js"></script>
     <script src="../../assets/js/theme.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $('#dtData').DataTable();
+      } );
+
+      $(document).ready(function() {
+        $('#dataTable').DataTable();
+      } );
+    </script>
+
+
 </body>
+
+
+
 
 </html>

@@ -118,42 +118,63 @@
                     <div class="d-flex flex-column" id="content-wrapper-1">
                         <div class="row">
                             <div class="col">
-                                <h1 class="fs-2">Recieve Product</h1>
+                                <h1>บิลรายการขาย</h1>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <header></header>
                             </div>
+                        </div>                    
+                        <div class="card-body">                     
+                            <div class="card-body">                     
+                                <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0" id="dataTable">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th class="text-center">DocNo</th>
+                                                <th class="text-center">Date</th>
+                                                <th class="text-center">Chanel</th>
+                                                <th class="text-center">Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                     <%
+                                            if(obj.length!=0){
+                                            var i=1;
+                                            //DateCreateOrder
+                                            obj.forEach(function(data){
+
+                                                
+
+                                      %>
+                                            <tr>
+                                                <td class="text-center"><a href="/users/billsell-detail/?bill=<%=data.id%>"><%=data.OrderNumber%></a></td>
+                                                <td class="text-center"><%=data.DateCreateOrder.toISOString().split('T')[0]%></td>
+                                                <td class="text-center"><%=data.SalesChannel%></td>
+                                                <td class="text-center"><%=data.ItemAmount%></td>
+                                            </tr>
+                                            <%  i++; }) %>
+                                            <% } else{ %>
+                                                <tr>
+                                                    <td colspan="5"><div align="center">No Data Found</div></td>
+                                                </tr>
+                                            <% } %>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr class="table-primary">
+                                                <td class="text-center">DocNo</td>
+                                                <td class="text-center">Date</td>
+                                                <td class="text-center">Chanel</td>
+                                                <td class="text-center">Amount</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>                              
+                            </div>                         
                         </div>
-                        <div class="row"><table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>วันที่ (ว/ด/ป)</th>
-                <th>สถานะ</th> 
-            </tr>
-        </thead>
-        <tbody>
-     <%
-            if(obj.length!=0){
-            var i=1;
-            obj.forEach(function(data){
-      %>
-            <tr>
-                <td><a href="/users/recive/?opt=confirm&id=<%=data.id%>"><%=data.StockListNumber%></a></td>
-                <td><%=data.DateCreateStockList%></td>
-                <td><%=data.ReceiveStatus%></td>
-            </tr>
-            <%  i++; }) %>
-            <% } else{ %>
-                <tr>
-                    <td colspan="4"><div align="center">No Data Found</div></td>
-                </tr>
-            <% } %>
-            
-        </tbody>
-    </table></div>
                     </div>
                 </div>
             </div>
@@ -181,6 +202,24 @@
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
     <script src="../../assets/js/DataTable---Fully-BSS-Editable.js"></script>
     <script src="../../assets/js/theme.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $('#dtData').DataTable();
+      } );
+
+      $(document).ready(function() {
+        $('#dataTable').DataTable();
+      } );
+    </script>
+
+
 </body>
 
 </html>
