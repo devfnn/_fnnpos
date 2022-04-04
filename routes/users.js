@@ -11,12 +11,11 @@ const { Console } = require('console');
 
 
 router.get('/', async function(req, res, next) {
-  if (!req.session.loggedin) {    
-    var _shopcode = '11111'
-    var _data
-    var _dateNow = moment(Date.now()).format('YYYY-MM-DD')
-    var _sql = "SELECT * FROM pos_online.pos_saledailydetail WHERE ShopCode = '"+_shopcode+"' AND DateDailySale = '"+_dateNow+"';"
-    var _data = await get_mysql_data(_sql)
+  if (req.session.loggedin) {    
+    
+    var _shopcode = req.session.usercode
+    var _data = loadData_Home(_shopcode)
+    // console.log('sessions',_shopcode, req.session.loggedin)
 
     res.render('./user/home', { title: 'Home User' ,obj: _data, username: req.session.username, usercode: req.session.usercode});
     
@@ -430,27 +429,28 @@ router.post('/auth', async function(req, res) {
 var sess
 let username = req.body.username;
 let password = req.body.password;
+
   // let time_expired = 600000;
   if (username && password) {
     var _sql = "SELECT * FROM pos_member WHERE MemberName = '"+username+"' AND ShopCode = '"+password+"'";
     console.log('login: ',_sql)
     // Execute SQL query that'll select the account from the database based on the specified username and password
     var _login = await get_mysql_data(_sql)
-    // console.log('login: ',_login.length)
+    // console.log('login: ',_login[0].ShopCode)
     // console.log(_login.length)
     if (_login.length > 0) {
       // Authenticate the user
       req.session.loggedin = true;
       req.session.username = username;
       req.session.usercode = password;
-      sess = req.session
-      sess.loggedin = true
-      console.log('login: ', req.session.usercode)
+      // console.log('login: ', req.session.usercode)
+
+      var _data = loadData_Home(_login[0].ShopCode)
       // req.session.cookie.maxAge = time_expired;
       
       // Redirect to home page
       // res.render('./user/home', { title: 'home user', page : 'loadCus' , obj: data , username: req.session.username, usercode:req.session.usercode});
-      return res.render('./user/home', { title: 'home user', username: req.session.username, usercode:req.session.usercode});
+      return res.render('./user/home', { title: 'home user',obj: _data, username: req.session.username, usercode:req.session.usercode});
       // res.redirect('/admin');
   } else {
       // res.statusCode(500).send('Incorrect Username and/or Password!');
@@ -496,6 +496,17 @@ var get_mysql_data=(sql,place_holder)=>
             })
         });
     });
+
+
+
+ }
+
+async function loadData_Home(_shopcode){
+      var _data
+      var _dateNow = moment(Date.now()).format('YYYY-MM-DD')
+      var _sql = "SELECT * FROM pos_online.pos_saledailydetail WHERE ShopCode = '"+_shopcode+"' AND DateDailySale = '"+_dateNow+"';"
+      var _data = await get_mysql_data(_sql)
+      return _data
 }
 
 module.exports = router;

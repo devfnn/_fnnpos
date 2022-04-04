@@ -3,7 +3,7 @@ const mysql = require('mysql');
 
 // configraration with env. 
 dotenv.config();
-
+// on GCP use sqluser
 const mysql_connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -18,3 +18,13 @@ mysql_connection.connect( async function(err) {
 });
 
 module.exports = mysql_connection;
+
+/*
+const mysql_connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '@#Ju!c90#@', 
+  database: 'pos_online' ,
+  port: '3306'
+});
+*/
