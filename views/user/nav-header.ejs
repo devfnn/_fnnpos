@@ -1,30 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Blank Page - Brand</title>
-    <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="../../assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="../../assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="../../assets/fonts/fontawesome5-overrides.min.css">
-    <link rel="stylesheet" href="../../assets/css/Data-Table-1.css">
-    <link rel="stylesheet" href="../../assets/css/Data-Table.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../assets/css/Login-Form-Clean.css">
-</head>
-
-<body id="page-top">
-    <div id="wrapper">
-        <% include nav %>
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+<div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <ul class="navbar-nav flex-nowrap ms-auto">
                             <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
                                 <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
@@ -105,7 +79,7 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">สาขาสาธุประดิษ&nbsp;</span><img class="border rounded-circle img-profile" src="../../assets/img/avatars/avatar1.jpeg"></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small"><%= username%>:<%= usercode%></span><img class="border rounded-circle img-profile" src="../../assets/img/avatars/avatar1.jpeg"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
@@ -113,110 +87,3 @@
                             </li>
                         </ul>
                     </div>
-                </nav>
-                <div class="container-fluid">
-                    <div class="d-flex flex-column" id="content-wrapper-1">
-                        <div class="row">
-                            <div class="col">
-                                <h1>บิลรายการขาย</h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <header></header>
-                            </div>
-                        </div>                    
-                        <div class="card-body">                     
-                            <div class="card-body">                     
-                                <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
-                                    <table class="table my-0" id="dataTable">
-                                        <thead>
-                                            <tr class="table-primary">
-                                                <th class="text-center">DocNo</th>
-                                                <th class="text-center">Date</th>
-                                                <th class="text-center">Chanel</th>
-                                                <th class="text-center">Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                     <%
-                                            if(obj.length > 0){
-                                            var i=1;
-                                            //DateCreateOrder
-                                            obj.forEach(function(data){
-                                      %>
-                                            <tr>
-                                                <td class="text-center"><a href="/users/billsell-detail/?bill=<%=data.id%>"><%=data.OrderNumber%></a></td>
-                                                <td class="text-center"><%=data.DateCreateOrder.toISOString().split('T')[0]%></td>
-                                                <td class="text-center"><%=data.SalesChannel%></td>
-                                                <td class="text-center"><%=data.ItemAmount%></td>
-                                            </tr>
-                                            <%  i++; }) %>
-                                            <% } else{ %>
-                                                <tr>
-                                                    <td colspan="5"><div align="center">No Data Found</div></td>
-                                                </tr>
-                                            <% } %>
-
-                                        </tbody>
-                                        <tfoot>
-                                            <tr class="table-primary">
-                                                <td class="text-center">DocNo</td>
-                                                <td class="text-center">Date</td>
-                                                <td class="text-center">Chanel</td>
-                                                <td class="text-center">Amount</td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>                              
-                            </div>                         
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-    </div>
-    <footer class="text-center bg-white d-inline-flex mb-auto sticky-footer" style="margin: 1px;">
-        <div class="container text-center my-auto">
-            <div class="text-center my-auto copyright"><span class="text-center">Copyright © Brand 2022</span></div>
-        </div>
-    </footer>
-    <script src="../../assets/js/jquery.min.js"></script>
-    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/bs-init.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
-    <script src="../../assets/js/DataTable---Fully-BSS-Editable.js"></script>
-    <script src="../../assets/js/theme.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-
-
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
-
-    <script>
-      $(document).ready(function() {
-        $('#dtData').DataTable();
-      } );
-
-      $(document).ready(function() {
-        $('#dataTable').DataTable();
-      } );
-    </script>
-
-
-</body>
-
-</html>
