@@ -13,9 +13,11 @@ const { Console } = require('console');
 router.get('/', async function(req, res, next) {
   if (req.session.loggedin) {    
     
+   
     var _shopcode = req.session.usercode
-    var _data = loadData_Home(_shopcode)
-    // console.log('sessions',_shopcode, req.session.loggedin)
+    var _data = await loadData_Home(_shopcode)
+    // 
+    console.log('sessions',_shopcode, req.session.loggedin)
 
     res.render('./user/home', { title: 'Home User' ,obj: _data, username: req.session.username, usercode: req.session.usercode});
     
@@ -26,7 +28,7 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/sell', async function(req, res, next) {
-  if (!req.session.loggedin) {    
+  if (req.session.loggedin) {    
     var _username = req.session.username
     var _usercode = req.session.usercode
     var _getJsonBody = req.body
@@ -39,6 +41,7 @@ router.get('/sell', async function(req, res, next) {
     console.log(_sql)
     var _data = await get_mysql_data(_sql)
 
+      console.log(_data)
     res.render('./user/sell_product', { title: 'Home User' , obj: _data, username: _username, usercode:_usercode});
   }else{
 
@@ -76,11 +79,11 @@ console.log('opt:', _opt)
 
 router.get('/recive', async function(req, res, next) {
 
-  if (req.session.loggedin) {  
+  if (req.session.loggedin || req.query.loggedin) {  
     var _username = req.session.username
     var _usercode = req.session.usercode
-    alert(req.session.password)
-    var _getBody = req.body
+    
+    var _getBody = req.body 
 
     var _opt = req.query.opt // get option type
     // var _id = req.body.Header.ReciveId //get in json body
@@ -89,8 +92,10 @@ router.get('/recive', async function(req, res, next) {
     var _data
     var _sql
 
+
     // console.log('recv opt: ' + _opt)
     // opt=all request: shopcode  confirm
+
 
     // call switch recivce
     switch(_opt){
@@ -100,6 +105,13 @@ router.get('/recive', async function(req, res, next) {
         _data = await get_mysql_data(_sql);
         // console.log(_sql)
         break;
+      case 'detail':
+        var _reciveid = req.query.reciveid 
+          // var _shopcode = req.query.shopcode
+          _sql = "SELECT * FROM pos_online.pos_stocklist WHERE id = '"+ _reciveid +"';"
+          _data = await get_mysql_data(_sql);
+          // console.log(_sql)
+          break;
       case 'confirm':
 
         // การรับสินค้าเข้าคลัง font ๖้องเอา jsondata เดิมแต่เพิ่มฟิว recvStatus, recvRemark เข้ามา เพื่อเช็คว่า กล่องไหนรับ กล่องไหนไม่รับ พร้อมเหตุผล ที่ไม่รับ
@@ -144,13 +156,14 @@ router.get('/recive', async function(req, res, next) {
                           var  _insertStock = await get_mysql_data(_insertStockSQL)
                           console.log('1. new stock: ', _insertStock.insertId)
 
+
                       }else{ 
                          // 2. พบ อัปเดท OnHan = OnHan + UnitQuantity
                           console.log('element.UnitQuantity: ' , element.UnitQuantity)
                           var _updateStockSQL = "UPDATE `pos_online`.`pos_stock` SET `OnHand` = `OnHand` + "+element.UnitQuantity+" WHERE (`ShopCode` = '"+_shopcode+"' AND `ProductCode` = '"+element.product_code+"');"
 
                           var _updateStock = await get_mysql_data(_updateStockSQL)
-                          console.log('2. update stock: ', _updateStock.affectedRows)
+                          console.log('2. update stock: ', _updateStock.affectedRows, _updateStockSQL)
                       }
                   
                     } else {
@@ -163,6 +176,7 @@ router.get('/recive', async function(req, res, next) {
                 // check ถ้า not recive มากกว่า 0 ให้บันทึก NotReciveStatus เป็น true เพื่อบอกให้รู้ว่ารายการ stock นี้มีการกดไม่รับสินค้า สาเหตุอยู่ใน new json string 
                 var _notReciveStatus = false
                 _notRecv > 0 ?_notReciveStatus=true:_notReciveStatus=false
+
                 var _updateStockListSQL = "UPDATE `pos_online`.`pos_stocklist` SET `ReceiveStatus` = 'recived', `NotReciveStatus` = "+_notReciveStatus+", `JsonDataAfterRecive` = '"+JsonDataAfterRecive+"', `ReciveCount` = '"+_recv+"', `NotReciveCount` = '"+ _notRecv+"', DateReceive = '"+_dateNow+"', RecivedBy = '"+req.session.usercode+"' WHERE (`id` = '"+_header.ReciveId+"');"
 
                 var _updateStockList = await get_mysql_data(_updateStockListSQL)
@@ -170,6 +184,15 @@ router.get('/recive', async function(req, res, next) {
                 console.log('3. _updateStockListSQL: ', _updateStockListSQL,_updateStockList.affectedRows)
                 var _getStockSQL = "SELECT * FROM vw_stock WHERE ShopCode = '"+_shopcode+"'"
                 _data = await get_mysql_data(_getStockSQL)
+
+                // 4. add running sti in pos_member.StockNumber
+                  // 1. get status 'sending' 
+                  // 2. get last running StockNUmber
+                  // 3. new StockNumber exp. 1 : 1+1 = 2 new StockNumber = 2
+                  // 4. update pos_member.StockNumber = new StockNUmber
+                  // 5. final StockListNumber = 'sti'  + shopname + new StockNUmber
+                  // 6. update pos_stocklist.StockListNumber = final StockListNumber 
+
              }
           }
 
@@ -192,7 +215,7 @@ router.get('/recive', async function(req, res, next) {
 
 
 router.get('/report', async function(req, res, next) {
-  if (!req.session.loggedin) {    
+  if (req.session.loggedin) {    
     var _username = req.session.username
     var _usercode = req.session.usercode
     var _getJsonBody = req.body
@@ -208,34 +231,58 @@ router.get('/report', async function(req, res, next) {
     res.render('./user/report', { title: 'Report' , obj: _data, username: _username, usercode:_usercode});
   }else{
 
-    res.send('respond with a resource');
+    return res.render('./user/index', { title: 'Home User Login !' });
   }
 });
 
-router.get('/sellbill', async function(req, res, next) {
-  if (!req.session.loggedin) {    
+router.get('/bill', async function(req, res, next) {
+  if (req.session.loggedin) {    
     var _username = req.session.username
     var _usercode = req.session.usercode
     var _getJsonBody = req.body
-    var _countRows = _getJsonBody.length
-    // console.log(countRows)
-    
 
-    var _shopcode = '11111'
-    var _sql = "SELECT * FROM pos_online.pos_saleorderlist WHERE ShopCode = '"+_shopcode+"'"
-    
-    // console.log(_sql)
-    var _data = await get_mysql_data(_sql)
+ 
+    res.render('./user', { title: 'Report' , obj: [{}], username: _username, usercode:_usercode});
+  }else{
+
+    return res.render('./user/index', { title: 'Home User Login !' });
+  }
+});
+
+
+router.get('/sellbill', async function(req, res, next) {
+  if (req.session.loggedin) {    
+    var _data
+    var _username = req.session.username
+    var _usercode = req.session.usercode
+    var _getJsonBody = req.body
+    console.log(_usercode)
+
+    var _getSellBillSQL = "SELECT * FROM pos_online.pos_saleorderlist WHERE ShopCode = '"+_usercode+"'"
+    _data = await get_mysql_data(_getSellBillSQL)
+
 
     res.render('./user/sellbill', { title: 'Report' , obj: _data, username: _username, usercode:_usercode});
   }else{
 
-    res.send('respond with a resource');
+    return res.render('./user/index', { title: 'Home User Login !' });
+  }
+});
+
+
+router.get('/slip', async function(req, res, next) {
+  if (req.session.loggedin) {    
+    var _data = []
+
+    res.render('./user', { title: 'Report' , obj: _data, username: _username, usercode:_usercode});
+  }else{
+
+    return res.render('./user/index', { title: 'Home User Login !' });
   }
 });
 
 router.post('/sell', async function(req, res, next) {
-  if (!req.session.loggedin) {    
+  if (req.session.loggedin || req.query.loggedin) {    
     // check data json body (ข้อมูลการขายที่มาจาก font ส่งมาเป็น body:json)
     
     if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
@@ -352,7 +399,11 @@ router.post('/sell', async function(req, res, next) {
     
               }
           }
-          return res.render('./user/home', { title: 'User Home',  username: req.session.username, usercode:req.session.usercode});
+
+          var _sql = "SELECT * FROM pos_online.pos_saleorderlist WHERE ShopCode = '"+_shopcode+"'"
+          var _data = await get_mysql_data(_sql)
+
+          return res.render('./user/home', { title: 'User Home', obj:_data,  username: req.session.username, usercode:req.session.usercode});
        
         }else{
   
@@ -362,7 +413,7 @@ router.post('/sell', async function(req, res, next) {
     }
   }else{
 
-    return res.status(404).send({status: 0, message: "Not Found !"});
+    return res.status(500).send({status: 0, message: "Not Login !"});
   }
 });
 
@@ -436,7 +487,7 @@ let password = req.body.password;
     console.log('login: ',_sql)
     // Execute SQL query that'll select the account from the database based on the specified username and password
     var _login = await get_mysql_data(_sql)
-    // console.log('login: ',_login[0].ShopCode)
+    console.log('login: ',_login[0].ShopCode)
     // console.log(_login.length)
     if (_login.length > 0) {
       // Authenticate the user
@@ -445,11 +496,14 @@ let password = req.body.password;
       req.session.usercode = password;
       // console.log('login: ', req.session.usercode)
 
-      var _data = loadData_Home(_login[0].ShopCode)
+      var _data = await  loadData_Home(_login[0].ShopCode)
       // req.session.cookie.maxAge = time_expired;
       
       // Redirect to home page
       // res.render('./user/home', { title: 'home user', page : 'loadCus' , obj: data , username: req.session.username, usercode:req.session.usercode});
+      // console.log('saleDaily loginpage', _data)
+
+
       return res.render('./user/home', { title: 'home user',obj: _data, username: req.session.username, usercode:req.session.usercode});
       // res.redirect('/admin');
   } else {
@@ -505,7 +559,11 @@ async function loadData_Home(_shopcode){
       var _data
       var _dateNow = moment(Date.now()).format('YYYY-MM-DD')
       var _sql = "SELECT * FROM pos_online.pos_saledailydetail WHERE ShopCode = '"+_shopcode+"' AND DateDailySale = '"+_dateNow+"';"
+      // console.log('saleDaily _sql', _sql)
+
       var _data = await get_mysql_data(_sql)
+
+      // console.log('saleDaily', _data, _dateNow)
       return _data
 }
 

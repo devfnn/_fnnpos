@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Blank Page - Brand</title>
+    <title>Home</title>
     <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="../../assets/fonts/fontawesome-all.min.css">
@@ -119,37 +119,36 @@
                         <div id="content-2">
                             <div class="container-fluid" style="padding-bottom: 30px;">
                                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                                    <h3 class="text-dark mb-0">Dashboard</h3>
+                                    <!-- <h3 class="text-dark mb-0">Dashboard</h3> -->
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <h4 class="fs-2 text-center">ยอดขายวันนี้</h4>
-                                        <h6 class="fs-4 text-center text-muted mb-2">31/3/2565 10.22 น.</h6>
+                                        <h4 class="fs-4 text-center">ยอดขายวันนี้ <%= obj.length %></h4>
+                                        <h6 class="fs-4 text-center text-muted mb-2"><%= obj.length > 0 ? obj[0].DateDailySale.toISOString().split('T')[0] : new Date().toISOString().split('T')[0] %></h6>
                                     </div>
                                 </div>
-                                <br>
                                 <div>
-                                    <div class="row">
-                                        <div class="col">
+                                    <div class="row g-0">
+                                        <div class="col-sm-6">
                                             <div class="card">
                                                 <div class="card-body font-monospace">
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <h4 class="text-center card-title">จำนวนเงินรวม</h4>
-                                                            <p class="fs-2 text-center card-text"><%= obj.TotalAmount%></p>
+                                                            <p class="fs-4 text-center card-text"><%= obj.length > 0 ? obj[0].TotalAmount : 0 %></p>
                                                             <p class="text-center card-text">เงินสด / E-payment</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-sm-6">
                                             <div class="card">
                                                 <div class="card-body font-monospace">
                                                     <div class="card">
                                                         <div class="card-body">
-                                                            <h4 class="text-center card-title">จำนวนชื้นรวม</h4>
-                                                            <p class="fs-2 text-center card-text"><%= obj.SalesQuantity%></p>
+                                                            <h4 class="text-center card-title">จำนวนชิ้นรวม</h4>
+                                                            <p class="fs-4 text-center card-text"><%= obj.length > 0 ? obj[0].SalesQuantity: 0 %></p>
                                                             <p class="text-center card-text">Online 0 | Offline 0</p>
                                                         </div>
                                                     </div>
