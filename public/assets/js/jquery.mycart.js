@@ -7,7 +7,7 @@
 (function ($) {
 
   "use strict";
-
+  
   var OptionManager = (function () {
     var objToReturn = {};
 
@@ -86,15 +86,21 @@
     var setAllProducts = function (products) {
       localStorage[STORAGE_NAME] = JSON.stringify(products);
     };
-    var addProduct = function (id, name, summary, price, quantity, image) {
+    var addProduct = function (id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image) {
       var products = getAllProducts();
       products.push({
-        id: id,
-        name: name,
-        summary: summary,
-        price: price,
-        quantity: quantity,
-        image: image
+        id:id,
+        name:name,
+        shopcode:shopcode,
+        price:price,
+        quantity:quantity,
+        onhand:onhand,
+        salequantity:salequantity,
+        quantityrevise:quantityrevise,
+        stockin:stockin,
+        stockiD:stockiD,
+        shopnameshort:shopnameshort,
+        image:image
       });
       setAllProducts(products);
     };
@@ -124,7 +130,7 @@
       setAllProducts(products);
       return true;
     };
-    var setProduct = function (id, name, summary, price, quantity, image) {
+    var setProduct = function (id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image) {
       if (typeof id === "undefined") {
         console.error("id required");
         return false;
@@ -145,10 +151,10 @@
         console.error("โปรดระบุเป็นตัวเลข");
         return false;
       }
-      summary = typeof summary === "undefined" ? "" : summary;
+     // summary = typeof summary === "undefined" ? "" : summary;
 
       if (!updatePoduct(id, quantity, true)) {
-        addProduct(id, name, summary, price, quantity, image);
+        addProduct(id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image);
       }
     };
     var clearProduct = function () {
@@ -217,27 +223,27 @@
 
     $cartBadge.text(ProductManager.getTotalQuantity());
 //  POP up Cart
-    if (!$("#" + idCartModal).length) {
-      $('body').append(
-        '<div class="modal fade" id="' + idCartModal + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">' +
-        '<div class="modal-dialog" role="document">' +
-        '<div class="modal-content">' +
-        '<div class="modal-header">' +
-        '<button type="button" id="IDModal" class="close btn"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-        '<h4 class="modal-title" id="myModalLabel"><span class="fas fa-shopping-cart"></span> My Cart</h4>' +
-        '</div>' +
-        '<div class="modal-body">' +
-        '<table class="table table-hover table-responsive" id="' + idCartTable + '"></table>' +
-        '</div>' +
-        '<div class="modal-footer">' +
-        '<button type="button" id="IDModal" class="btn btn-default " data-bs-dismiss="modal">Close</button>' +
-        '<button type="button" class="btn btn-primary ' + classCheckoutCart + '">Checkout</button>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>'
-      );
-    }
+    // if (!$("#" + idCartModal).length) {
+    //   $('body').append(
+    //     '<div class="modal fade" id="' + idCartModal + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">' +
+    //     '<div class="modal-dialog" role="document">' +
+    //     '<div class="modal-content">' +
+    //     '<div class="modal-header">' +
+    //     '<button type="button" id="IDModal" class="close btn"  data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+    //     '<h4 class="modal-title" id="myModalLabel"><span class="fas fa-shopping-cart"></span> My Cart</h4>' +
+    //     '</div>' +
+    //     '<div class="modal-body">' +
+    //     '<table class="table table-hover table-responsive" id="' + idCartTable + '"></table>' +
+    //     '</div>' +
+    //     '<div class="modal-footer">' +
+    //     '<button type="button" id="IDModal" class="btn btn-default " data-bs-dismiss="modal">Close</button>' +
+    //     '<button type="button" class="btn btn-primary ' + classCheckoutCart + '">Checkout</button>' +
+    //     '</div>' +
+    //     '</div>' +
+    //     '</div>' +
+    //     '</div>'
+    //   );
+    // }
 
     var drawTable = function () {
       var $cartTable = $("#" + idCartTable);
@@ -273,7 +279,7 @@
       //  discount  price
       var discountPrice = options.getDiscountPrice(products, ProductManager.getTotalPrice(), ProductManager.getTotalQuantity());
       if (products.length && discountPrice !== null) {
-       /* $cartTable.append(
+        $cartTable.append(
           '<tr style="color: red">' +
           '<td></td>' +
          '<td><strong>Total (including discount)</strong></td>' +
@@ -282,7 +288,7 @@
           '<td class="text-right"><strong id="' + idDiscountPrice + '"></strong></td>' +
           '<td></td>' +
           '</tr>'
-        );*/
+        );
       }
 
       showGrandTotal();
@@ -290,7 +296,7 @@
     };
     var showModal = function () {
       drawTable();
-      $("#" + idCartModal).modal('show');
+      //$("#" + idCartModal).modal('show');
     };
     var updateCart = function () {
       $.each($("." + classProductQuantity), function () {
@@ -347,6 +353,7 @@
         ProductManager.removeProduct(id);
         drawTable();
         $cartBadge.text(ProductManager.getTotalQuantity());
+        
       });
     });
 
@@ -359,10 +366,19 @@
       updateCart();
       var isCheckedOut = options.checkoutCart(ProductManager.getAllProducts(), ProductManager.getTotalPrice(), ProductManager.getTotalQuantity());
       if (isCheckedOut !== false) {
+        drawTable();
         ProductManager.clearProduct();
         $cartBadge.text(ProductManager.getTotalQuantity());
-        $("#" + idCartModal).modal("hide");
+         
+        var $cartTable = $("#" + idCartTable);
+      $cartTable.empty();
+      //  เคลีย ข้อมูลเมื่อ บันทึกรายการเรียบร้อย
+      $cartTable.append(
+        '<div class="alert alert-danger" role="alert" >บันทึกรายการเรียบร้อย</div>'
+      );
+       // $("#" + idCartModal).modal("hide");
       }
+     
     });
 
     $(document).on('click', targetSelector, function () {
@@ -371,15 +387,25 @@
 
       var id = $target.data('id');
       var name = $target.data('name');
-      var summary = $target.data('summary');
+      var shopcode = $target.data('shopcode');
       var price = $target.data('price');
       var quantity = $target.data('quantity');
+      var onhand = $target.data('onhand');
+      var salequantity = $target.data('salequantity');
+      var quantityrevise = $target.data('quantityrevise');
+      var stockin = $target.data('stockin');
+      var stockiD = $target.data('stockiD');
+      var shopnameshort = $target.data('shopnameshort');
       var image = $target.data('image');
+      
+     // var $cartTable = $("#" + idCartTable); 
 
-      ProductManager.setProduct(id, name, summary, price, quantity, image);
+      ProductManager.setProduct(id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image);
       $cartBadge.text(ProductManager.getTotalQuantity());
 
       options.afterAddOnCart(ProductManager.getAllProducts(), ProductManager.getTotalPrice(), ProductManager.getTotalQuantity());
+      drawTable();
+      
     });
 
   };
