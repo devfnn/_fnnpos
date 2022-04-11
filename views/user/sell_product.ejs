@@ -34,31 +34,8 @@
         <% include nav %>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-<<<<<<< HEAD
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <% include nav-header %>
-=======
-                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top " >
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <ul class="navbar-nav flex-nowrap ms-auto">
-                            
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" href="#"><i class="fas fa-shopping-cart fa-fw my-cart-icon"><span class="badge bg-danger badge-notify my-cart-badge"></span></i></a>
-                                    
-                                </div>
-                            </li>
-                           
-                            <div class="d-none d-sm-block topbar-divider"></div>
-                            <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">สาขาสาธุประดิษ&nbsp;</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
->>>>>>> f081bd3ef44b85b048c1b209906b8d4deecfe473
                 </nav>
                 <div class="container-fluid">
                     <div class="d-flex flex-column" id="content-wrapper-1">
@@ -84,14 +61,7 @@
                                        </div>
                                 </div>
                                 <div class="card-body">
-<<<<<<< HEAD
-                                    <div class="row">
-                
-                                     
-                                    </div>
-=======
                                     
->>>>>>> f081bd3ef44b85b048c1b209906b8d4deecfe473
 
 
                                     <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
@@ -106,11 +76,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-<<<<<<< HEAD
 <!-- <p>data: <%= JSON.stringify(obj);%></script>  </p> -->
-=======
-                                               
->>>>>>> f081bd3ef44b85b048c1b209906b8d4deecfe473
                                           <%
                                                 
 
@@ -121,16 +87,9 @@
                                               <tr> 
                                                 <td><img class="rounded-circle me-2" width="50" height="50" src="../../assets/img/products/<%= data.ProductCode %>.png"></td>
                                                 <td style="font-size: 14px;"><%=data.ProductName%>: <%=data.ProductCode%></td>
-<<<<<<< HEAD
                                                 <td class="text-center" style="font-size: 14px;"><%=data.ProductPrice%></td>
                                                 <td class="text-center"><button style="font-size: 14px;" class="btn btn-primary btn-sm" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;">Add Cart<i class="fa fa-cart-plus"></i></button></td>
                                               </tr>
-=======
-                                                <td class="text-center" style="font-size: 14px;">10</td>
-                                                 <!-- เพิ่มข้อมูลสินค้าด้วน data-ชนิดของค่าที่จะใส่ -->
-                                                <td class="text-center"><button class="btn btn-primary btn-sm my-cart-btn" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;" data-id="<%=data.ProductCode%>" data-name="<%=data.ProductName%>" data-summary="<%=data.ProductName%>" data-price="<%=data.ProductPrice%>" data-quantity="1" data-image="<%= data.ProductCode %>.png">Add Cart&nbsp;&nbsp;<i class="fa fa-cart-plus"></i></button></td>
-                                            </tr>
->>>>>>> f081bd3ef44b85b048c1b209906b8d4deecfe473
                                               <%  i++; }) %>
                                               <% } else{ %>
                                                   <tr>
@@ -218,43 +177,49 @@
             clickOnCartIcon: function($cartIcon, products, totalPrice, totalQuantity) {
               console.log("cart icon clicked", $cartIcon, products, totalPrice, totalQuantity);
             },
-            checkoutCart: function(products, totalPrice, totalQuantity) {
-              var checkoutString = "Total Price: " + totalPrice + "\nTotal Quantity: " + totalQuantity;
-              let ckString = {};
-              checkoutString += "\n\n id \t name \t summary \t price \t quantity \t image path";
-              $.each(products, function(){
-                checkoutString += ("\n " + this.id + " \t " + this.name + " \t " + this.summary + " \t " + this.price + " \t " + this.quantity + " \t " + this.image);
+            
+            
+            // checkoutCart: function(products, totalPrice, totalQuantity) {
+            //   var checkoutString = "Total Price: " + totalPrice + "\nTotal Quantity: " + totalQuantity;
+            //   let ckString = {};
+            //   checkoutString += "\n\n id \t name \t summary \t price \t quantity \t image path";
+            //   $.each(products, function(){
+            //     checkoutString += ("\n " + this.id + " \t " + this.name + " \t " + this.summary + " \t " + this.price + " \t " + this.quantity + " \t " + this.image);
                 
-                ckString += 
-                                id:this.id ,
-                                Name:this.name ,
-                                Summary: this.summary ,
-                                Price:this.price ,
-                                Quantity:this.quantity ,
-                                Image:this.image 
-                           ;
-              });
+            //     ckString += 
+            //                     id:this.id ,
+            //                     Name:this.name ,
+            //                     Summary: this.summary ,
+            //                     Price:this.price ,
+            //                     Quantity:this.quantity ,
+            //                     Image:this.image 
+            //                 ;
+                        
+                
+        
+            //   });
 
-             let cksString = { Header: {
-                        doc_id:"test",
-                        shopcode: "11111",
-                        date: "31-03-2022",
-                        sale_chanel:"shopee pay",
-                        pay_method: "เงินสด",
-                        sum_amount: "30",
-                        product_count:"30",
-                        data: [ ckString ] }};
-              var teststring = "";
-              console.log(ckString);
+            //  let cksString = { Header: {
+            //             doc_id:"test",
+            //             shopcode: "11111",
+            //             date: "31-03-2022",
+            //             sale_chanel:"shopee pay",
+            //             pay_method: "เงินสด",
+            //             sum_amount: "30",
+            //             product_count:"30",
+            //             data: [ ckString ] }};
+            //   var teststring = "";
+            //   console.log(ckString);
               
-             // localStorage.setItem('gStorage', JSON.stringify(checkoutString));
-              var jsonfile = JSON.stringify(cksString);
-              console.log(jsonfile);
-              //var obj = JSON.parse(localStorage.getItem('gStorage'));
-            // console.log("checking out", products, totalPrice, totalQuantity);
-              // console.log(checkoutString);
-            },
-         
+            //  // localStorage.setItem('gStorage', JSON.stringify(checkoutString));
+            //   var jsonfile = JSON.stringify(cksString);
+            //   console.log(jsonfile);
+            //   //var obj = JSON.parse(localStorage.getItem('gStorage'));
+            // // console.log("checking out", products, totalPrice, totalQuantity);
+            //   // console.log(checkoutString);
+            // },
+
+            
             getDiscountPrice: function(products, totalPrice, totalQuantity) {
               console.log("calculating discount", products, totalPrice, totalQuantity);
               return totalPrice * 1;
@@ -264,6 +229,9 @@
         });
     
     </script>
+   
+  
+
 </body>
 
 </html>
