@@ -16,6 +16,17 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../assets/css/Login-Form-Clean.css">
+    <style>
+        .badge-notify{
+          background:red;
+          position:relative;
+          top: -10px;
+          right: 10px;
+        }
+        .my-cart-icon-affix {
+         
+        }
+        </style>
 </head>
 
 <body id="page-top" class="sidebar-toggled">
@@ -23,8 +34,31 @@
         <% include nav %>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
+<<<<<<< HEAD
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <% include nav-header %>
+=======
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top " >
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" href="#"><i class="fas fa-shopping-cart fa-fw my-cart-icon"><span class="badge bg-danger badge-notify my-cart-badge"></span></i></a>
+                                    
+                                </div>
+                            </li>
+                           
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">สาขาสาธุประดิษ&nbsp;</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+>>>>>>> f081bd3ef44b85b048c1b209906b8d4deecfe473
                 </nav>
                 <div class="container-fluid">
                     <div class="d-flex flex-column" id="content-wrapper-1">
@@ -47,14 +81,17 @@
                                         <div class="col-auto col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                             <p class="fs-4 text-primary m-0 fw-bold">สินค้า</p>
                                         </div>
-                                        <div class="col-auto col-sm-8 col-md-6 col-lg-8 col-xl-8 col-xxl-8 text-end"><button class="btn btn-success link-light" type="submit" style="margin-right: 10px;">Check Out&nbsp;&nbsp;<i class="fas fa-check"></i></button><button class="btn btn-danger link-light" type="submit">Clear&nbsp;&nbsp;<i class="fas fa-times"></i></button></div>
-                                    </div>
+                                       </div>
                                 </div>
                                 <div class="card-body">
+<<<<<<< HEAD
                                     <div class="row">
                 
                                      
                                     </div>
+=======
+                                    
+>>>>>>> f081bd3ef44b85b048c1b209906b8d4deecfe473
 
 
                                     <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
@@ -69,7 +106,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+<<<<<<< HEAD
 <!-- <p>data: <%= JSON.stringify(obj);%></script>  </p> -->
+=======
+                                               
+>>>>>>> f081bd3ef44b85b048c1b209906b8d4deecfe473
                                           <%
                                                 
 
@@ -80,9 +121,16 @@
                                               <tr> 
                                                 <td><img class="rounded-circle me-2" width="50" height="50" src="../../assets/img/products/<%= data.ProductCode %>.png"></td>
                                                 <td style="font-size: 14px;"><%=data.ProductName%>: <%=data.ProductCode%></td>
+<<<<<<< HEAD
                                                 <td class="text-center" style="font-size: 14px;"><%=data.ProductPrice%></td>
                                                 <td class="text-center"><button style="font-size: 14px;" class="btn btn-primary btn-sm" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;">Add Cart<i class="fa fa-cart-plus"></i></button></td>
                                               </tr>
+=======
+                                                <td class="text-center" style="font-size: 14px;">10</td>
+                                                 <!-- เพิ่มข้อมูลสินค้าด้วน data-ชนิดของค่าที่จะใส่ -->
+                                                <td class="text-center"><button class="btn btn-primary btn-sm my-cart-btn" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;" data-id="<%=data.ProductCode%>" data-name="<%=data.ProductName%>" data-summary="<%=data.ProductName%>" data-price="<%=data.ProductPrice%>" data-quantity="1" data-image="<%= data.ProductCode %>.png">Add Cart&nbsp;&nbsp;<i class="fa fa-cart-plus"></i></button></td>
+                                            </tr>
+>>>>>>> f081bd3ef44b85b048c1b209906b8d4deecfe473
                                               <%  i++; }) %>
                                               <% } else{ %>
                                                   <tr>
@@ -100,46 +148,6 @@
                                             </tfoot>
                                           </table>
                                           
-
-                                          
-                                        <!-- <table class="table my-0" id="dataTable">
-                                            <thead>
-                                                <tr class="table-primary">
-                                                    <th style="font-size: 14px;">รูป</th>
-                                                    <th style="font-size: 14px;">ชื่อสินค้า</th>
-                                                    <th class="text-center" style="font-size: 14px;">ราคา</th>
-                                                    <th class="text-center" style="font-size: 14px;">จำนวน</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><img class="rounded-circle me-2" width="50" height="50" src="assets/img/avatars/1310141-min_36.jpg"></td>
-                                                    <td style="font-size: 14px;">ก๊อตช่า ดินสอ</td>
-                                                    <td class="text-center" style="font-size: 14px;">10</td>
-                                                    <td class="text-center"><button class="btn btn-primary btn-sm" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;">Add Cart&nbsp;&nbsp;<i class="fa fa-cart-plus"></i></button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img class="rounded-circle me-2" width="50" height="50" src="assets/img/avatars/6623D06-4384A60-C5085C0.png"></td>
-                                                    <td style="font-size: 14px;">ก๊อตช่า สตอเบอรี่</td>
-                                                    <td class="text-center" style="font-size: 14px;">15</td>
-                                                    <td class="text-center"><button class="btn btn-primary btn-sm" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;">Add Cart&nbsp;&nbsp;<i class="fa fa-cart-plus"></i></button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img class="rounded-circle me-2" width="50" height="50" src="assets/img/avatars/menueditor_item_77c85a175870489a99b9915e6251f367_1630686696268184651.jpg"></td>
-                                                    <td style="font-size: 14px;">สวัสดีถั่วดำ</td>
-                                                    <td class="text-center" style="font-size: 14px;">12</td>
-                                                    <td class="text-center"><button class="btn btn-primary btn-sm" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;">Add Cart&nbsp;&nbsp;<i class="fa fa-cart-plus"></i></button></td>
-                                                </tr>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr class="table-primary">
-                                                    <td style="font-size: 14px;"><strong>รูป</strong></td>
-                                                    <td style="font-size: 14px;"><strong>ชื่อสินค้า</strong></td>
-                                                    <td style="text-align: center;font-size: 14px;"><strong>ราคา</strong></td>
-                                                    <td style="text-align: center;font-size: 14px;"><strong>จำนวน</strong></td>
-                                                </tr>
-                                            </tfoot>
-                                        </table> -->
 
                                     </div>
                           
@@ -159,19 +167,20 @@
             <div class="text-center my-auto copyright"><span class="text-center">Copyright © Brand 2022</span></div>
         </div>
     </footer>
+
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../assets/js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script> -->
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
     <script src="../../assets/js/DataTable---Fully-BSS-Editable.js"></script>
@@ -180,17 +189,87 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../../assets/js/jquery-2.2.3.min.js"></script>
+    <script type='text/javascript' src="../../assets/js/jquery.mycart.min.js"></script>
+    <script type='text/javascript' src="../../assets/js/jquery.mycart.js"></script>
+    <script src="../../assets/js/bs-init.js"></script>
+    <script type="text/javascript">
+    
+      $(function () {
+      
+      var goToCartIcon = function($addTocartBtn){
+        var $cartIcon = $(".my-cart-icon");
+        
+        var position = $cartIcon.position();
+        
+      }
+      
+            
+         
+      $('.my-cart-btn').myCart({
+            
+            
+            clickOnAddToCart: function($addTocart){
+              goToCartIcon($addTocart);
+            },
+            afterAddOnCart: function(products, totalPrice, totalQuantity) {
+              console.log("afterAddOnCart", products, totalPrice, totalQuantity);
+            },
+            clickOnCartIcon: function($cartIcon, products, totalPrice, totalQuantity) {
+              console.log("cart icon clicked", $cartIcon, products, totalPrice, totalQuantity);
+            },
+            checkoutCart: function(products, totalPrice, totalQuantity) {
+              var checkoutString = "Total Price: " + totalPrice + "\nTotal Quantity: " + totalQuantity;
+              let ckString = {};
+              checkoutString += "\n\n id \t name \t summary \t price \t quantity \t image path";
+              $.each(products, function(){
+                checkoutString += ("\n " + this.id + " \t " + this.name + " \t " + this.summary + " \t " + this.price + " \t " + this.quantity + " \t " + this.image);
+                
+                ckString += 
+                                id:this.id ,
+                                Name:this.name ,
+                                Summary: this.summary ,
+                                Price:this.price ,
+                                Quantity:this.quantity ,
+                                Image:this.image 
+                            ;
+                        
+                
+        
+              });
 
-    <script>
-      $(document).ready(function() {
-        $('#dtData').DataTable();
-      } );
+             let cksString = { Header: {
+                        doc_id:"test",
+                        shopcode: "11111",
+                        date: "31-03-2022",
+                        sale_chanel:"shopee pay",
+                        pay_method: "เงินสด",
+                        sum_amount: "30",
+                        product_count:"30",
+                        data: [ ckString ] }};
+              var teststring = "";
+              console.log(ckString);
+              
+             // localStorage.setItem('gStorage', JSON.stringify(checkoutString));
+              var jsonfile = JSON.stringify(cksString);
+              console.log(jsonfile);
+              //var obj = JSON.parse(localStorage.getItem('gStorage'));
+            // console.log("checking out", products, totalPrice, totalQuantity);
+              // console.log(checkoutString);
+            },
 
-      $(document).ready(function() {
-        $('#dataTable').DataTable();
-      } );
+            
+            getDiscountPrice: function(products, totalPrice, totalQuantity) {
+              console.log("calculating discount", products, totalPrice, totalQuantity);
+              return totalPrice * 1;
+            }
+          });
+          
+        });
+    
     </script>
-
+   
+  
 
 </body>
 
