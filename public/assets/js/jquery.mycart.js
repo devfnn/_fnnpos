@@ -86,7 +86,7 @@
     var setAllProducts = function (products) {
       localStorage[STORAGE_NAME] = JSON.stringify(products);
     };
-    var addProduct = function (id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image) {
+    var addProduct = function (id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockid,shopnameshort,image) {
       var products = getAllProducts();
       products.push({
         id:id,
@@ -98,7 +98,7 @@
         salequantity:salequantity,
         quantityrevise:quantityrevise,
         stockin:stockin,
-        stockiD:stockiD,
+        stockid:stockid,
         shopnameshort:shopnameshort,
         image:image
       });
@@ -130,7 +130,7 @@
       setAllProducts(products);
       return true;
     };
-    var setProduct = function (id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image) {
+    var setProduct = function (id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockid,shopnameshort,image) {
       if (typeof id === "undefined") {
         console.error("id required");
         return false;
@@ -154,7 +154,7 @@
      // summary = typeof summary === "undefined" ? "" : summary;
 
       if (!updatePoduct(id, quantity, true)) {
-        addProduct(id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image);
+        addProduct(id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockid,shopnameshort,image);
       }
     };
     var clearProduct = function () {
@@ -394,13 +394,14 @@
       var salequantity = $target.data('salequantity');
       var quantityrevise = $target.data('quantityrevise');
       var stockin = $target.data('stockin');
-      var stockiD = $target.data('stockiD');
+      var stockid = $target.data('stockid');
       var shopnameshort = $target.data('shopnameshort');
       var image = $target.data('image');
       
      // var $cartTable = $("#" + idCartTable); 
+      console.log('stockid-add', stockid);
 
-      ProductManager.setProduct(id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image);
+      ProductManager.setProduct(id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockid,shopnameshort,image);
       $cartBadge.text(ProductManager.getTotalQuantity());
 
       options.afterAddOnCart(ProductManager.getAllProducts(), ProductManager.getTotalPrice(), ProductManager.getTotalQuantity());

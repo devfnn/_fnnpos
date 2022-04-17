@@ -60,18 +60,21 @@
                         <div id="content-2">
                             
                                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                                    <h3 class="text-dark mb-0">ขายสินค้า</h3>
+                                    <h3 class="text-dark mb-0">ขายสินค้า <%= usercode %></h3>
                                 </div>
                                 <div>
                                     <div class="row">
                                         <div class="col">
-                                            <div class="card shadow" style="background: rgb(235, 222, 168);">
+                                            <div class="card shadow" style="background: rgb(250, 250, 250);">
                                                 <div class="card-header py-3" style="background: rgb(156,178,255);">
                                                     <div class="row">
                                                         <div class="col-auto col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                             <p class="fs-4 m-0 fw-bold" style="color: rgb(0,0,0);">สินค้าในตะกร้า</p>
                                                         </div>
-                                                        <div class="col-auto col-sm-8 col-md-6 col-lg-8 col-xl-8 col-xxl-8 text-end"> <button type="button" class="btn btn-primary my-cart-checkout" style="margin-right: 10px;">Checkout</button></button><button class="btn btn-danger link-light" type="submit">Clear&nbsp;&nbsp;<i class="fas fa-times"></i></button></div>
+                                                        <div class="col-auto col-sm-8 col-md-6 col-lg-8 col-xl-8 col-xxl-8 text-end"> 
+                                                            <button type="button" class="btn btn-primary my-cart-checkout" style="margin-right: 10px;">Checkout</button>
+                                                        </button><button class="btn btn-danger link-light" type="submit">Clear&nbsp;&nbsp;
+                                                            <i class="fas fa-times"></i></button></div>
                                                     </div>
                                                 </div>
                                                 <div class="card-body" style="padding: 5px;">
@@ -126,10 +129,10 @@
                                           %>
                                               <tr>
                                                 <td><img class="rounded-circle me-2" width="50" height="50" src="../../assets/img/products/<%= data.ProductCode %>.png"></td>
-                                                <td style="font-size: 14px;"><%=data.ProductName%>: <%=data.ProductCode%></td>
-                                                <td class="text-center" style="font-size: 14px;">10</td>
+                                                <td style="font-size: 14px;"><%=data.ProductName%>: <%=data.ProductCode%>: <%=data.StockID%></td>
+                                                <td class="text-center" style="font-size: 14px;"><%=data.ProductPrice%></td>
                                                  <!-- เพิ่มข้อมูลสินค้าด้วน data-ชนิดของค่าที่จะใส่ -->
-                                                <td class="text-center"><button class="btn btn-primary btn-sm my-cart-btn my-cart-icon" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;" data-id="<%=data.ProductCode%>" data-name="<%=data.ProductName%>" data-shopcode="<%=data.ShopCode%>" data-price="<%=data.ProductPrice%>" data-quantity="1" data-onhand="<%= data.OnHand %>" data-salequantity="<%= data.SaleQuantity %>" data-quantityrevise="<%= data.QuantityRevise %>" data-stockin="<%= data.StockIn %>" data-stockiD="<%= data.StockID %>" data-shopnameshort="<%= data.ShopNameShort %>" data-image="<%= data.ProductCode %>.png">Add Cart&nbsp;&nbsp;<i class="fa fa-cart-plus"></i></button></td>
+                                                <td class="text-center"><button class="btn btn-primary btn-sm my-cart-btn my-cart-icon" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;" data-id="<%=data.ProductCode%>" data-name="<%=data.ProductName%>" data-shopcode="<%=data.ShopCode%>" data-price="<%=data.ProductPrice%>" data-quantity="1" data-onhand="<%= data.OnHand %>" data-salequantity="<%= data.SaleQuantity %>" data-quantityrevise="<%= data.QuantityRevise %>" data-stockin="<%= data.StockIn %>" data-stockid="<%=data.StockID%>" data-shopnameshort="<%= data.ShopNameShort %>" data-image="<%= data.ProductCode %>.png">Add Cart&nbsp;&nbsp;<i class="fa fa-cart-plus"></i></button></td>
                                             </tr>
                                               <%  i++; }) %>
                                               <% } else{ %>
@@ -195,6 +198,7 @@
     <script src="../../assets/js/bs-init.js"></script>
     <script type="text/javascript">
     
+
       $(function () {
       
       var goToCartIcon = function($addTocartBtn){
@@ -203,8 +207,7 @@
         var position = $cartIcon.position();
         
       }
-      
-            
+        
          
       $('.my-cart-btn').myCart({
             
@@ -238,7 +241,7 @@
                     SaleQuantity:this.salequantity,
                     QuantityRevise:this.quantityrevise,
                     StockIn:this.stockin,
-                    StockID:this.stockiD,
+                    StockID:this.stockid,
                     ShopNameShort:this.shopnameshort,
                     Image:this.image,
 
@@ -248,25 +251,42 @@
                 
               });
               // test json header  value
-             let cksString = { Header: {
+            let cksString = { Header: {
                         doc_id:"test",
-                        shopcode: this.shopcode,
-                        date: "31-03-2022",
+                        shopcode: '<%=usercode%>',
+                        date: "2022-04-17",
                         sale_chanel:"shopee pay",
                         pay_method: "เงินสด",
                         sum_amount: totalPrice,
                         product_count: totalQuantity,
                         data: [ ckString ] }};
-              var teststring = "";
-              console.log(ckString);
-              
-             // localStorage.setItem('gStorage', JSON.stringify(checkoutString));
-             //  convert to json format 
-              var jsonfile = JSON.stringify(cksString);
+            var teststring = "";
 
-              // print json format  in console 
+            // console.log('ckString', ckString);
+            // localStorage.setItem('gStorage', JSON.stringify(checkoutString));
+            //  convert to json format 
+
+            var jsonfile = JSON.stringify(cksString);
+
+            // print json format  in console 
               console.log('final json', jsonfile);
-              
+            //   alert(jsonfile);
+
+
+            //Send POST Request 
+            let xhr = new XMLHttpRequest();
+                xhr.open("POST", "/users/sell");
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = () => console.log(xhr.responseText);
+                xhr.send(jsonfile);
+               
+            if(confirm("บันทึกการขายเรียบร้อย !")) {
+                window.location.href = "/users/"
+            }
+
+
+
               //var obj = JSON.parse(localStorage.getItem('gStorage'));
             // console.log("checking out", products, totalPrice, totalQuantity);
               // console.log(checkoutString);
