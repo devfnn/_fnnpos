@@ -1,5 +1,5 @@
 const express = require('express');
-const { get, json } = require('express/lib/response');
+const { get, json, send } = require('express/lib/response');
 const router = express.Router();
 const db = require('../db_config/db_connect')
 const multer = require('multer');
@@ -27,27 +27,6 @@ router.get('/', async function(req, res, next) {
   }
 });
 
-router.get('/sell', async function(req, res, next) {
-  if (req.session.loggedin) {    
-    var _username = req.session.username
-    var _usercode = req.session.usercode
-    var _getJsonBody = req.body
-    var _countRows = _getJsonBody.length
-    // console.log(countRows)
-    
-
-    var _shopcode = '11111'
-    var _sql = "SELECT * FROM vw_stock WHERE shopcode = '"+_shopcode+"'"
-    console.log(_sql)
-    var _data = await get_mysql_data(_sql)
-
-      console.log(_data)
-    res.render('./user/sell_product', { title: 'Home User' , obj: _data, username: _username, usercode:_usercode});
-  }else{
-
-    res.send('respond with a resource');
-  }
-});
 
 router.get('/stock', async function(req, res, next) {
   if (req.session.loggedin) {  
@@ -281,6 +260,33 @@ router.get('/slip', async function(req, res, next) {
   }
 });
 
+router.get('/sell', async function(req, res, next) {
+  if (req.session.loggedin) {    
+    var _username = req.session.username
+    var _usercode = req.session.usercode
+    var _getJsonBody = req.body
+    var _countRows = _getJsonBody.length
+    // console.log(countRows)
+    
+
+    //var _shopcode = '11111'
+    var _sql = "SELECT * FROM vw_stock WHERE shopcode = '"+_usercode+"' AND StockIn > 0;"
+    // console.log('_sql', _sql)
+    var _data = await get_mysql_data(_sql)
+
+    var _sqlSaleChanel = "SELECT * FROM pos_salechanel WHERE status = 'active';"
+    var _sqlPayMethod = "SELECT * FROM pos_paymethod WHERE status = 'active';"
+
+    var _dataSaleChanel = await get_mysql_data(_sqlSaleChanel)
+    var _dataPayMethod = await get_mysql_data(_sqlPayMethod)
+      // console.log(_data)
+    res.render('./user/sell_product', { title: 'Home User' ,obj_salechanel:_dataSaleChanel, obj_paymethod:_dataPayMethod, obj: _data, username: _username, usercode:_usercode});
+  }else{
+
+    return res.render('./user/index', { title: 'Home User Login !' });
+  }
+});
+
 router.post('/sell', async function(req, res, next) {
   if (req.session.loggedin || req.query.loggedin) {    
     // check data json body (ข้อมูลการขายที่มาจาก font ส่งมาเป็น body:json)
@@ -290,6 +296,9 @@ router.post('/sell', async function(req, res, next) {
       // ไม่พบข้อมูลแจ้งเตือน status 0
       return res.status(404).send({status: 0, message: "Object missing"});
     }else{
+
+      var jss = JSON.stringify( req.body)
+      console.log('req.body.Header', jss)
 
       // พบข้อมูล check จำนวนแถวข้อมูลก่อนเข้าเงื่อนไขบันทึก
         var _getBody = req.body.Header.data
@@ -352,15 +361,21 @@ router.post('/sell', async function(req, res, next) {
   
         // 2. update stock
         // ตัด stock
+        
+        console.log('_datarowJson', _headerData[0][0].id, _headerData[0].length )
 
-          for (let index = 0; index < _headerData.length; index++) {
-            const element = _headerData[index];
-            var _sql = "UPDATE `pos_stock` SET `SaleQuantity` = `SaleQuantity` +  "+element.qty+" WHERE `pos_stock`.`id` = "+element.stock_id+";"
-            //console.log('2. SQL UpdateStock ' + _sql)
-            var _updateStock = await get_mysql_data(_sql)
-      
-            console.log('2. _updateStock (cut stock): ' + _updateStock.affectedRows + ' stockId: ' + element.stock_id)
-          }
+        for (let index = 0; index < _headerData[0].length; index++) {
+            
+          console.log('_headerData[0][index].Quantity',  _headerData[0][index].Quantity)
+
+          const element = _headerData[0][index];
+
+          var _sql = "UPDATE `pos_stock` SET `SaleQuantity` = `SaleQuantity` +  "+element.Quantity+" WHERE `pos_stock`.`id` = "+element.StockID+";"
+          //console.log('2. SQL UpdateStock ' + _sql)
+          var _updateStock = await get_mysql_data(_sql)
+    
+          console.log('2. _updateStock (cut stock): ' + _updateStock.affectedRows + ' stockId: ' + element.StockID)
+        }  
   
         // บันทึกการแจ้งยอดเงิน
         // 3. update header sum amount dayly 
@@ -369,7 +384,7 @@ router.post('/sell', async function(req, res, next) {
 
         // ถ้าเป็นเงินสด บันทึกข้อมูล saledailydetail
 
-          if (_pay_method === 'cash') {
+          if (_pay_method === 'cash' || 'เงินสด') {
             var dateNow = moment(Date.now()).format('YYYY-MM-DD')
             console.log('moment date: ' + dateNow)
     
@@ -550,9 +565,6 @@ var get_mysql_data=(sql,place_holder)=>
             })
         });
     });
-
-
-
  }
 
 async function loadData_Home(_shopcode){

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Blank Page - Brand</title>
+    <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="../../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="../../assets/css/Data-Table-1.css">
+    <link rel="stylesheet" href="../../assets/css/Data-Table.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../../assets/css/Login-Form-Clean.css">
+    <style>
+        .badge-notify{
+          background:red;
+          position:relative;
+          top: -10px;
+          right: 10px;
+        }
+        .my-cart-icon-affix {
+         
+        }
+        </style>
+</head>
+
+<body id="page-top" class="sidebar-toggled">
+    <div id="wrapper">
+        <% include nav %>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top " >
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" href="#"><i class="fas fa-shopping-cart fa-fw my-cart-icon"><span class="badge bg-danger badge-notify my-cart-badge"></span></i></a>
+                                    
+                                </div>
+                            </li>
+                           
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">สาขาสาธุประดิษ&nbsp;</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container">
+                 
+                        <div id="content-2">
+                            
+                                <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                    <h3 class="text-dark mb-0">ขายสินค้า <%= usercode %></h3>
+                                </div>
+                                <div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card shadow" style="background: rgb(250, 250, 250);">
+                                                <div class="card-header py-3" style="background: rgb(156,178,255);">
+                                                    <div class="row">
+                                                        <div class="col-auto col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                            <p class="fs-4 m-0 fw-bold" style="color: rgb(0,0,0);">สินค้าในตะกร้า</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-auto col-sm-8 col-md-6 col-lg-8 col-xl-8 col-xxl-8 text-end"> 
+                                                            <button type="button" class="btn btn-primary my-cart-checkout" style="margin-right: 10px;">Checkout</button>
+                                                        </button>
+                                                            <button class="btn btn-danger link-light" type="submit">Clear&nbsp;&nbsp;
+                                                            <i class="fas fa-times"></i></button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="card-body" style="padding: 5px;">
+                                                    <div class="table-responsive table mt-2" id="dataTable-2" role="grid" aria-describedby="dataTable_info">
+                                                        <table class="table table-hover table-responsive" id="my-cart-table"></table>
+                                                         
+                                                            
+                                                            
+                                                        </table>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                    
+                    </div>
+                </div>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-auto col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <p class="fs-4 text-primary m-0 fw-bold">สินค้า</p>
+                                        </div>
+                                       </div>
+                                </div>
+                                <div class="card-body">
+                                    
+
+                                    <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
+                                       
+                                        <table class="table my-0" id="dataTable">
+                                            <thead>
+                                                <tr class="table-primary">
+                                                    
+                                                    <th style="font-size: 14px;">รูป</th>
+                                                    <th style="font-size: 14px;">ชื่อสินค้า</th>
+                                                    <th class="text-center" style="font-size: 14px;">ราคา</th>
+                                                    <th class="text-center" style="font-size: 14px;">จำนวน</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               
+                                          <%
+                                                if(obj.length!=0){
+                                                var i=1;
+                                                obj.forEach(function(data){
+                                          %>
+                                              <tr>
+                                                <td><img class="rounded-circle me-2" width="50" height="50" src="../../assets/img/products/<%= data.ProductCode %>.png"></td>
+                                                <td style="font-size: 14px;"><%=data.ProductName%>: <%=data.ProductCode%>: <%=data.StockID%></td>
+                                                <td class="text-center" style="font-size: 14px;"><%=data.ProductPrice%></td>
+                                                 <!-- เพิ่มข้อมูลสินค้าด้วน data-ชนิดของค่าที่จะใส่ -->
+                                                <td class="text-center"><button class="btn btn-primary btn-sm my-cart-btn my-cart-icon" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;" data-id="<%=data.ProductCode%>" data-name="<%=data.ProductName%>" data-shopcode="<%=data.ShopCode%>" data-price="<%=data.ProductPrice%>" data-quantity="1" data-onhand="<%= data.OnHand %>" data-salequantity="<%= data.SaleQuantity %>" data-quantityrevise="<%= data.QuantityRevise %>" data-stockin="<%= data.StockIn %>" data-stockid="<%=data.StockID%>" data-shopnameshort="<%= data.ShopNameShort %>" data-image="<%= data.ProductCode %>.png">Add Cart&nbsp;&nbsp;<i class="fa fa-cart-plus"></i></button></td>
+                                            </tr>
+                                              <%  i++; }) %>
+                                              <% } else{ %>
+                                                  <tr>
+                                                      <td colspan="4"><div align="center">No Data Found</div></td>
+                                                  </tr>
+                                              <% } %>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="table-primary">
+                                                    <td style="font-size: 14px;"><strong>รูป</strong></td>
+                                                    <td style="font-size: 14px;"><strong>ชื่อสินค้า</strong></td>
+                                                    <td style="text-align: center;font-size: 14px;"><strong>ราคา</strong></td>
+                                                    <td style="text-align: center;font-size: 14px;"><strong>จำนวน</strong></td>
+                                                </tr>
+                                            </tfoot>
+                                          </table>
+                                          
+
+                                    </div>
+                          
+   
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <footer class="text-center bg-white d-inline-flex mb-auto sticky-footer" style="margin: 1px;">
+        <div class="container text-center my-auto">
+            <div class="text-center my-auto copyright"><span class="text-center">Copyright © Brand 2022</span></div>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script> -->
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+    <script src="../../assets/js/DataTable---Fully-BSS-Editable.js"></script>
+    <script src="../../assets/js/theme.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../../assets/js/jquery-2.2.3.min.js"></script>
+    <script type='text/javascript' src="../../assets/js/jquery.mycart.min.js"></script>
+    <script type='text/javascript' src="../../assets/js/jquery.mycart.js"></script>
+    <script src="../../assets/js/bs-init.js"></script>
+    <script type="text/javascript">
+    
+
+      $(function () {
+      
+      var goToCartIcon = function($addTocartBtn){
+        var $cartIcon = $(".my-cart-icon");
+        
+        var position = $cartIcon.position();
+        
+      }
+        
+         
+      $('.my-cart-btn').myCart({
+            
+            
+            clickOnAddToCart: function($addTocart){
+              goToCartIcon($addTocart);
+            },
+            afterAddOnCart: function(products, totalPrice, totalQuantity) {
+              console.log("afterAddOnCart", products, totalPrice, totalQuantity);
+            },
+            clickOnCartIcon: function($cartIcon, products, totalPrice, totalQuantity) {
+              console.log("cart icon clicked", $cartIcon, products, totalPrice, totalQuantity);
+            },
+            checkoutCart: function(products, totalPrice, totalQuantity) {
+              var checkoutString = "Total Price: " + totalPrice + "\nTotal Quantity: " + totalQuantity;
+              let ckString = [];
+              let cstring = {};
+              checkoutString += "\n\n id \t name \t summary \t price \t quantity \t image path";
+              $.each(products, function(){
+               // checkoutString += ("\n " + this.id + " \t " + this.name + " \t " + this.summary + " \t " + this.price + " \t " + this.quantity + " \t " + this.image);
+                
+                //  add  object to array object
+                cString = {
+                    id:this.id,
+                    name:this.name,
+                    ShopCode:this.shopcode,
+                    Price:this.price,
+                    Quantity:this.quantity,
+                    OnHand:this.onhand,
+                    SaleQuantity:this.salequantity,
+                    QuantityRevise:this.quantityrevise,
+                    StockIn:this.stockin,
+                    StockID:this.stockid,
+                    ShopNameShort:this.shopnameshort,
+                    Image:this.image,
+
+                            };
+                ckString.push(cString);        
+                        
+              });
+              // test json header  value
+            let cksString = { Header: {
+                        doc_id:"test",
+                        shopcode: '<%=usercode%>',
+                        date: "2022-04-17",
+                        sale_chanel:"shopee pay",
+                        pay_method: "เงินสด",
+                        sum_amount: totalPrice,
+                        product_count: totalQuantity,
+                        data: [ ckString ] }};
+            var teststring = "";
+
+            // console.log('ckString', ckString);
+            // localStorage.setItem('gStorage', JSON.stringify(checkoutString));
+            //  convert to json format 
+
+            var jsonfile = JSON.stringify(cksString);
+
+            // print json format  in console 
+              console.log('final json', jsonfile);
+            //   alert(jsonfile);
+
+            //Send POST Request 
+            let xhr = new XMLHttpRequest();
+                xhr.open("POST", "/users/sell");
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = () => console.log(xhr.responseText);
+                xhr.send(jsonfile);
+               
+            if(confirm("บันทึกการขายเรียบร้อย !")) {
+                window.location.href = "/users/"
+            }
+
+
+              //var obj = JSON.parse(localStorage.getItem('gStorage'));
+            // console.log("checking out", products, totalPrice, totalQuantity);
+              // console.log(checkoutString);
+            },
+
+            getDiscountPrice: function(products, totalPrice, totalQuantity) {
+              console.log("calculating discount", products, totalPrice, totalQuantity);
+              return totalPrice * 1;
+            }
+          });
+          
+        });
+    </script>
+</body>
+
+</html>
