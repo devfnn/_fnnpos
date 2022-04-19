@@ -274,8 +274,13 @@ router.get('/sell', async function(req, res, next) {
     // console.log('_sql', _sql)
     var _data = await get_mysql_data(_sql)
 
+    var _sqlSaleChanel = "SELECT * FROM pos_salechanel WHERE status = 'active';"
+    var _sqlPayMethod = "SELECT * FROM pos_paymethod WHERE status = 'active';"
+
+    var _dataSaleChanel = await get_mysql_data(_sqlSaleChanel)
+    var _dataPayMethod = await get_mysql_data(_sqlPayMethod)
       // console.log(_data)
-    res.render('./user/sell_product', { title: 'Home User' , obj: _data, username: _username, usercode:_usercode});
+    res.render('./user/sell_product', { title: 'Home User' ,obj_salechanel:_dataSaleChanel, obj_paymethod:_dataPayMethod, obj: _data, username: _username, usercode:_usercode});
   }else{
 
     return res.render('./user/index', { title: 'Home User Login !' });
@@ -560,9 +565,6 @@ var get_mysql_data=(sql,place_holder)=>
             })
         });
     });
-
-
-
  }
 
 async function loadData_Home(_shopcode){
