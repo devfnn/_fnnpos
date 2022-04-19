@@ -1,8 +1,3 @@
-/*
- * jQuery myCart - v1.9 - 2020-12-03
- * http://asraf-uddin-ahmed.github.io/
- * Copyright (c) 2017 Asraf Uddin Ahmed; Licensed None
- */
 
 (function ($) {
 
@@ -157,10 +152,11 @@
         addProduct(id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image);
       }
     };
-    var clearProduct = function () {
-      setAllProducts([]);
-    };
-    var removeProduct = function (id) {
+    
+      var clearProduct = function () {
+        setAllProducts([]);
+      };
+      var removeProduct = function (id) {
       var products = getAllProducts();
       products = $.grep(products, function (value, index) {
         return value.id != id;
@@ -184,11 +180,18 @@
       });
       return total;
     };
+    var clearcart = function () {
+      var $cartClear = $("#" + idCartClear);
+      $cartClear.empty();
+      localStorage[STORAGE_NAME] = [];
+      //$("#" + idCartModal).modal('show');
+    };
 
     objToReturn.getAllProducts = getAllProducts;
     objToReturn.updatePoduct = updatePoduct;
     objToReturn.setProduct = setProduct;
     objToReturn.clearProduct = clearProduct;
+    objToReturn.Clearcart = clearcart;
     objToReturn.removeProduct = removeProduct;
     objToReturn.getTotalQuantity = getTotalQuantity;
     objToReturn.getTotalPrice = getTotalPrice;
@@ -207,6 +210,7 @@
 
     var idCartModal = 'my-cart-modal';
     var idCartTable = 'my-cart-table';
+    var idCartClear = 'my-cart-clear';
     var idGrandTotal = 'my-cart-grand-total';
     var idEmptyCartMessage = 'my-cart-empty-message';
     var idDiscountPrice = 'my-cart-discount-price';
@@ -253,11 +257,11 @@
       $.each(products, function () {
         var total = this.quantity * this.price;
         $cartTable.append(
-          '<tr title="' + this.summary + '" data-id="' + this.id + '" data-price="' + this.price + '">' +
+          '<tr title="' + this.summary + '" data-id="' + this.id + '" data-price="' + this.price +  ' "data-max="'+ this.stockin + '">' +
           '<td class="text-center" style="width: 40px;"><img width="30px" height="0px" src="' + this.image + '"/></td>' +
           '<td>' + this.name + '</td>' +
           '<td title="Unit Price" class="text-right">' + MathHelper.getRoundedNumber(this.price) + '</td>' +
-          '<td title="Quantity"><input type="number" min="1" style="width: 70px; margin-left:5px;" class="' + classProductQuantity + '" value="' + this.quantity + '"/></td>' +
+          '<td title="Quantity"><input type="number" min="1" max="'+ this.stockin + '"  style="width: 70px; margin-left:5px;" class="' + classProductQuantity + '" value="' + this.quantity + '"/></td>' +
           '<td title="Total" class="text-right ' + classProductTotal + '">' + MathHelper.getRoundedNumber(total) + '</td>' +
           '<td title="Remove from Cart" class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger ' + classProductRemove + '">X</a></td>' +
           '</tr>'
@@ -298,9 +302,11 @@
       drawTable();
       //$("#" + idCartModal).modal('show');
     };
+    
     var updateCart = function () {
       $.each($("." + classProductQuantity), function () {
         var id = $(this).closest("tr").data("id");
+
         ProductManager.updatePoduct(id, $(this).val());
       });
     };
@@ -325,12 +331,24 @@
     $cartIcon.click(function () {
       options.showCheckoutModal ? showModal() : options.clickOnCartIcon($cartIcon, ProductManager.getAllProducts(), ProductManager.getTotalPrice(), ProductManager.getTotalQuantity());
     });
+    
+    $(document).ready(function(){
+      options.showCheckoutModal ? showModal() : options.clickOnCartIcon($cartIcon, ProductManager.getAllProducts(), ProductManager.getTotalPrice(), ProductManager.getTotalQuantity());
+    
+    });
 
     $(document).on("input", "." + classProductQuantity, function () {
       var price = $(this).closest("tr").data("price");
       var id = $(this).closest("tr").data("id");
+      var valuemax = $(this).closest("tr").data("max");
       var quantity = $(this).val();
 
+      // ตั้งค่า ให้ใส่ตัวเลขได้ไม่เกินที่มี สต๊อกอยู่
+      $(this).val(Math.min(valuemax, Math.max(1, $(this).val())));
+      //$(this).val(Math.max(valuemax,$(this).val()));
+      // console.log(id);
+      // console.log(price);
+      // console.log(valuemax);
       $(this).parent("td").next("." + classProductTotal).text( MathHelper.getRoundedNumber(price * quantity));
       ProductManager.updatePoduct(id, quantity);
 
@@ -412,6 +430,11 @@
   
 
   $.fn.myCart = function (userOptions) {
+    OptionManager.loadOptions(userOptions);
+    loadMyCartEvent(this.selector);
+    return this;
+  };
+  $.fn.loadCart = function (userOptions) {
     OptionManager.loadOptions(userOptions);
     loadMyCartEvent(this.selector);
     return this;
