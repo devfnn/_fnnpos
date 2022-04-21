@@ -92,7 +92,7 @@
                             </select> 
                                 <div style="width: 5px;"></div>
                                 <button type="button" class="btn btn-primary my-cart-checkout btn-sm"  id="btn_completed" style="margin: 1px;" disabled=true >Checkout</button></button>
-                                <button class="btn btn-danger btn-sm link-light" type="submit" style="margin: 1px;">Clear&nbsp;&nbsp;<i class="fas fa-times"></i></button>
+                                <button class="btn btn-danger btn-sm link-light my-cart-clear" type="submit" style="margin: 1px;">Clear&nbsp;&nbsp;<i class="fas fa-times"></i></button>
                             
                             </div>
                               
@@ -239,6 +239,7 @@
               var Paymedthod=document.getElementsByName("Paymedthod")[0];
               var Sellchannel=document.getElementsByName("Sellchannel")[0];
               checkoutString += "\n\n id \t name \t summary \t price \t quantity \t image path";
+              
               $.each(products, function(){
                // checkoutString += ("\n " + this.id + " \t " + this.name + " \t " + this.summary + " \t " + this.price + " \t " + this.quantity + " \t " + this.image);
                 
@@ -257,6 +258,7 @@
                     StockID:this.stockid,
                     ShopNameShort:this.shopnameshort,
                     Image:this.image,
+                    
 
                             };
                 ckString.push(cString);        
@@ -331,6 +333,8 @@
           });
           
         });
+
+
     
         // function enableButton() {
         //   // var all_statuses =  document.getElementById("select_one");
@@ -345,38 +349,37 @@
             
         
         //     $(document).ready(enableButton);
-            
-    </script>
-   <script>
-            function enableButtons() {
-                   // var Sellchannel=document.getElementsByName("Sellchannel")[0];
-                //    alert('ssss');
-                    // var Sellchannel = document.body.querySelectorAll(".selected > .two");
-                    // var option_one = "ช่องทางการขาย";
-                    // var option_two = "ช่องทางการชำระเงิน";
-                    // var Paymedthod=document.getElementsByName("Paymedthod")[0];
 
-             
+                $('.my-cart-clear').on('click',function(){
+            
+            var STORAGE_NAME = "__mycart";
+            localStorage[STORAGE_NAME] = [];
+            $("#my-cart-table").empty();
+
+            $("#my-cart-table").append(
+                '<div class="alert alert-danger" role="alert" >ไม่มีสินค้าในตะกร้า</div>'
+            );
+        });
+    </script>
+    <script>
+            function enableButtons() {
+
+                    var rowCount = $("#my-cart-table > tbody").children().length-2;
+                    //alert(rowCount);
                     var _sale_chanel = document.getElementById('select_one').value
                     var _payment_method = document.getElementById('select_two').value
 
-                    if (_sale_chanel != 0 && _payment_method != 0) {
+                    if (_sale_chanel != 0 && _payment_method != 0 && rowCount > 0) {
                         
                         document.getElementById("btn_completed").disabled = false;
                     }else{ 
 
                         document.getElementById("btn_completed").disabled = true;
                     }
-                    // for (var j = 0; j < Sellchannel.length; j++) {
-                    //     console.log(j + " This will work 2222")
-                    //     if (Sellchannel[j].value != option_two && Paymedthod.value != option_one) {
-                    //     document.getElementById("btn_completed").disabled = false;
-                    //     } else document.getElementById("btn_completed").disabled = true;
-                    // }
             }
 
             $(document).ready(enableButtons);
-   </script>
+    </script>
    
 
 </body>
