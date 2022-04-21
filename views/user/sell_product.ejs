@@ -50,12 +50,45 @@
                                                         <div class="col-auto col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                             <p class="fs-4 m-0 fw-bold" style="color: rgb(0,0,0);">สินค้าในตะกร้า</p>
                                                         </div>
+                                                        <div class="col-auto col-sm-8 col-md-6 col-lg-8 col-xl-8 col-xxl-8 text-end">
+                                                            <form class="selected">         
+                                                                <select class="form-select-sm " id="select_one" name="Sellchannel"  >
+                                                                <optgroup label="ช่องทางการขาย" >
+                                                                    <option value="ช่องทางการขาย" selected>ช่องทางการขาย</option>
+                                                                    <option value="Grab">Grab</option>
+                                                                    <option value="Panda">Panda</option>
+                                                                    <option value="RobinHood">RobinHood</option>
+                                                                    <option value="GoJek">GoJek</option>
+                                                                    <option value="Offline">Offline</option>
+                                                                    <option value="LinePickUp">LinePickUp</option>
+                                                                    <option value="True Food">True Food</option>
+                                                                    <option value="LineMan">LineMan</option>
+                                                                    <option value="Shopee food" >Shopee food</option>
+                                                                    <option value="Shopteenee">Shopteenee</option>
+                                                                    <option value="Airasia">Airasia</option>
+                                                                </optgroup>
+                                                            </select>
+                                                            <select class="form-select-sm two"  id="select_two"  name="Paymedthod" onchange="enableButtons()">
+                                                                <optgroup label="ช่องทางการชำระเงิน">
+                                                                    <option value="ช่องทางการชำระเงิน" selected >ช่องทางการชำระเงิน</option>
+                                                                    <option value="เงินสด" >เงินสด</option>
+                                                                    <option value="E-payment">E-payment</option>
+                                                                    <option value="เงินสดคนละครึ่ง">เงินสดคนละครึ่ง</option>
+                                                                    <option value="Shopee Pay">Shopee Pay</option>
+                                                                </optgroup>
+                                                            </select> 
+                                                            <button type="button" class="btn btn-primary my-cart-checkout btn-sm"  id="btn_completed" style="margin-right: 10px;" >Checkout</button></button><button class="btn btn-danger btn-sm link-light my-cart-clear" >Clear&nbsp;&nbsp;<i class="fas fa-times"></i></button></div>
+                                                            </form>
+                                                         </div>
+                                                    
                                                     </div>
                                                 </div>
                                                 <div class="card-body" style="padding: 5px;">
                                                     <div class="table-responsive table mt-2" id="dataTable-2" role="grid" aria-describedby="dataTable_info">
                                                         <table class="table table-hover table-responsive" id="my-cart-table"></table>
+            
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -145,13 +178,13 @@
                                                       var i=1;
                                                       obj.forEach(function(data){
                                                 %>
-                                                    <tr>
-                                                      <td><img class="rounded-circle me-2" width="50" height="50" src="../../assets/img/products/<%= data.ProductCode %>.png"></td>
-                                                      <td style="font-size: 14px;"><%=data.ProductName%>: <%=data.ProductCode%>: <%=data.StockID%></td>
-                                                      <td class="text-center" style="font-size: 14px;"><%=data.ProductPrice%></td>
-                                                       <!-- เพิ่มข้อมูลสินค้าด้วน data-ชนิดของค่าที่จะใส่ -->
-                                                       <td class="text-center"><button class="btn btn-primary btn-sm my-cart-btn my-cart-icon" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;" data-id="<%=data.ProductCode%>" data-name="<%=data.ProductName%>" data-shopcode="<%=data.ShopCode%>" data-price="<%=data.ProductPrice%>" data-quantity="1" data-onhand="<%= data.OnHand %>" data-salequantity="<%= data.SaleQuantity %>" data-quantityrevise="<%= data.QuantityRevise %>" data-stockin="<%= data.StockIn %>" data-stockid="<%=data.StockID%>" data-shopnameshort="<%= data.ShopNameShort %>" data-image="<%= data.ProductCode %>.png">Add Cart&nbsp;&nbsp;<i class="fa fa-cart-plus"></i></button></td>
-                                                  </tr>
+                                                <tr>
+                                                    <td><img class="rounded-circle me-2" width="50" height="50" src="../../assets/img/products/<%= data.ProductCode %>.png"></td>
+                                                    <td style="font-size: 14px;"><%=data.ProductName%>: <%=data.ProductCode%></td>
+                                                    <td class="text-center" style="font-size: 14px;">10</td>
+                                                     <!-- เพิ่มข้อมูลสินค้าด้วน data-ชนิดของค่าที่จะใส่ -->
+                                                    <td class="text-center"><button class="btn btn-primary btn-sm my-cart-btn my-cart-icon" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;" data-id="<%=data.ProductCode%>" data-name="<%=data.ProductName%>" data-shopcode="<%=data.ShopCode%>" data-price="<%=data.ProductPrice%>" data-quantity="1" data-onhand="<%= data.OnHand %>" data-salequantity="<%= data.SaleQuantity %>" data-quantityrevise="<%= data.QuantityRevise %>" data-stockin="<%= data.StockIn %>" data-stockiD="<%= data.StockID %>" data-shopnameshort="<%= data.ShopNameShort %>" data-image="<%= data.ProductCode %>.png">Add Cart&nbsp;&nbsp;<i class="fa fa-cart-plus"></i></button></td>
+                                                </tr>
                                                     <%  i++; }) %>
                                                     <% } else{ %>
                                                         <tr>
@@ -215,7 +248,7 @@
     
       $(function () {
       
-      var goToCartIcon = function($addTocartBtn){
+        var goToCartIcon = function($addTocartBtn){
         var $cartIcon = $(".my-cart-icon");
         var position = $cartIcon.position();
         
@@ -318,6 +351,20 @@
             //     });
 
 
+            //   $.ajax({
+            //         type: "POST",
+            //         url: "./sell",
+            //         // The key needs to match your method's input parameter (case-sensitive).
+            //         data: jsonfile,
+            //         contentType: "application/json; charset=utf-8",
+            //         dataType: "json",
+            //         success: function(data){alert(data);},
+            //         error: function(errMsg) {
+            //             alert(errMsg);
+            //         }
+            //     });
+
+
               // print json format  in console 
               console.log(jsonfile);
               //var obj = JSON.parse(localStorage.getItem('gStorage'));
@@ -350,7 +397,7 @@
         
         //     $(document).ready(enableButton);
 
-                $('.my-cart-clear').on('click',function(){
+           $('.my-cart-clear').on('click',function(){
             
             var STORAGE_NAME = "__mycart";
             localStorage[STORAGE_NAME] = [];

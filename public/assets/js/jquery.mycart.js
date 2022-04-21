@@ -341,11 +341,13 @@
       var id = $(this).closest("tr").data("id");
       var valuemax = $(this).closest("tr").data("max");
       var quantity = $(this).val();
+
+      // ตั้งค่า ให้ใส่ตัวเลขได้ไม่เกินที่มี สต๊อกอยู่
       $(this).val(Math.min(valuemax, Math.max(1, $(this).val())));
       //$(this).val(Math.max(valuemax,$(this).val()));
-      console.log(id);
-      console.log(price);
-      console.log(valuemax);
+      // console.log(id);
+      // console.log(price);
+      // console.log(valuemax);
       $(this).parent("td").next("." + classProductTotal).text( MathHelper.getRoundedNumber(price * quantity));
       ProductManager.updatePoduct(id, quantity);
 
