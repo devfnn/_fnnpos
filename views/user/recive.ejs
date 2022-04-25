@@ -23,97 +23,7 @@
         <% include nav %>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <ul class="navbar-nav flex-nowrap ms-auto">
-                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
-                                <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
-                                    <form class="me-auto navbar-search w-100">
-                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">3+</span><i class="fas fa-shopping-cart fa-fw"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                                        <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="me-3">
-                                                <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 12, 2019</span>
-                                                <p>A new monthly report is ready to download!</p>
-                                            </div>
-                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="me-3">
-                                                <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 7, 2019</span>
-                                                <p>$290.29 has been deposited into your account!</p>
-                                            </div>
-                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="me-3">
-                                                <div class="bg-warning icon-circle"><i class="fas fa-exclamation-triangle text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 2, 2019</span>
-                                                <p>Spending Alert: We've noticed unusually high spending for your account.</p>
-                                            </div>
-                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">7</span><i class="fas fa-envelope fa-fw"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                                        <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="../../assets/img/avatars/avatar4.jpeg">
-                                                <div class="bg-success status-indicator"></div>
-                                            </div>
-                                            <div class="fw-bold">
-                                                <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I've been having.</span></div>
-                                                <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
-                                            </div>
-                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="../../assets/img/avatars/avatar2.jpeg">
-                                                <div class="status-indicator"></div>
-                                            </div>
-                                            <div class="fw-bold">
-                                                <div class="text-truncate"><span>I have the photos that you ordered last month!</span></div>
-                                                <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
-                                            </div>
-                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="../../assets/img/avatars/avatar3.jpeg">
-                                                <div class="bg-warning status-indicator"></div>
-                                            </div>
-                                            <div class="fw-bold">
-                                                <div class="text-truncate"><span>Last month's report looks great, I am very happy with the progress so far, keep up the good work!</span></div>
-                                                <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
-                                            </div>
-                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="../../assets/img/avatars/avatar5.jpeg">
-                                                <div class="bg-success status-indicator"></div>
-                                            </div>
-                                            <div class="fw-bold">
-                                                <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</span></div>
-                                                <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
-                                            </div>
-                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                                    </div>
-                                </div>
-                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
-                            </li>
-                            <div class="d-none d-sm-block topbar-divider"></div>
-                            <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">สาขาสาธุประดิษ&nbsp;</span><img class="border rounded-circle img-profile" src="../../assets/img/avatars/avatar1.jpeg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+                <% include nav-profile%>
 
                 <div class="container-fluid">
                     <div class="d-flex flex-column" id="content-wrapper-1">
@@ -134,10 +44,10 @@
                                 <thead>
                                     <tr class="table-primary">
                                    
-                                            <th>No</th>
-                                            <th>วันที่ (ป/ด/ว)</th>
-                                            <th>สถานะ</th> 
-                                      
+                                            <th style="font-size: 14px;">No</th>
+                                            <th style="font-size: 14px;">วันที่ (ป/ด/ว)</th>
+                                            <th style="text-align: center;font-size: 14px;">สถานะ</th> 
+                                            <th style="text-align: center;font-size: 14px;">รายละเอียด</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -148,10 +58,17 @@
                                     obj.forEach(function(data){
                               %>
                                   <tr>
-                                    <td><strong><a href="users/recive/?opt=detail&recvid=<%=data.id%>"><%=data.StockListNumber%></td>
+                                    <td><strong><%=data.StockListNumber%></td>
                                     <td style="font-size: 14px;"><%=data.DateCreateStockList.toISOString().split('T')[0] %></td>
-                                    <td class="text-center" style="font-size: 14px;"><button onclick="showDetail('<%=data.id%>')" >คลิก</button>  </td>
+                                    <td style="text-align: center; font-size: 14px;"><%=data.ReceiveStatus %></td>
+
+                                         <% if(data.ReceiveStatus === 'recived'){ %>
+                                            <td class="text-center" style="font-size: 14px;"><button disabled>คลิก</button></td>
+                                          <% }else{ %>
+                                            <td class="text-center" style="font-size: 14px;"><button onclick="showDetail('<%=data.JsonData%>','<%=data.id%>')">คลิก</button><input type="text" name="recive-detail" id="recive-detail" value="<%=data.JsonData%>" hidden ></td>
+                                          <% } %>
                                     </tr>
+                                    
                                   <%  i++; }) %>
                                   <% } else{ %>
                                       <tr>
@@ -165,6 +82,7 @@
                                         <td style="font-size: 14px;" ><strong>No</strong></td>
                                         <td style="text-align: center;font-size: 14px;"><strong>วันที่ (ป/ด/ว)</strong></td>
                                         <td style="text-align: center;font-size: 14px;"><strong>สถานะ</strong></td>
+                                        <td style="text-align: center;font-size: 14px;"><strong>รายละเอียด</strong></td>
                                     </tr>
                                 </tfoot>
                               </table>
@@ -172,28 +90,30 @@
                         </div>
 
                      <br> <br>
+                     
+                     <div id="set-reciveid">*</div>
                         <hr >
 
-                    <table>
-                        <thead>
+                    <table id="recive-detail-table" style="border: 1;">
+                        <thead style="background-color: rgb(223, 220, 198);">
                             <tr>
                                 <th>รหัส</th>
                                 <th>ชื่อสินค้า</th>
                                 <th>จำนวน</th> 
-                                <th>รับ</th> 
+                                
                             </tr>
                         </thead>
                         <tbody>
-                            <td>product code</td>
-                            <td>product name</td>
-                            <td>count</td>
-                            <td>recive</td>
+
+                            <td style="text-align: center;" colspan="4">-----</td>
+
                         </tbody>
                         
                     </table>
                     <br>
-                    <button onclick="alert('ยืนยันรับสินค้า')">ยืนยันรับสินค้า</button>
-
+                    <!-- <button onclick="confirmRecive()" disabled=true id="confirmR">ยืนยันรับสินค้า</button> -->
+                    <button onclick="confirmRecive()" disabled=true id="confirmR">ยืนยันรับสินค้า</button>
+                    
                     </div>
                 </div>
             </div>
@@ -204,6 +124,8 @@
             <div class="text-center my-auto copyright"><span class="text-center">Copyright © Brand 2022</span></div>
         </div>
     </footer>
+
+    <div id="tests"></div>
     <script src="../../assets/js/jquery.min.js"></script> 
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../assets/js/bs-init.js"></script>
@@ -235,8 +157,8 @@
         $('#dataTable').DataTable();
       } );
 
-      function showDetail(stocklit_id){
-        alert(stocklit_id)
+      function showDetail(stocklist_data, stocklit_id){
+    //  alert(stocklist_data)
         $(document).ready(function() {
             $('#dtData-detail').DataTable();
         });
@@ -245,11 +167,138 @@
             $('#dataTable').DataTable();
         });
 
+        var table = document.getElementById("recive-detail-table").getElementsByTagName('tbody')[0];
+        
+        $('#set-reciveid').text(stocklit_id);
 
+        $("#recive-detail-table").find("tr:not(:first)").remove();
+
+        if (JSON.parse(stocklist_data).length > 0) {
+            for (let index = 0; index < JSON.parse(stocklist_data).length; index++) {
+                const element = JSON.parse(stocklist_data)[index];
+                var row = table.insertRow(index);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);        
+
+                cell1.innerHTML = element.product_code;
+                cell2.innerHTML = element.product_code; 
+                cell3.innerHTML = "<div id='qt-"+element.product_code+"'>"+element.QT+"</div>";
+                cell4.innerHTML = "<div id='checkboxList'><div><input type='checkbox' value='"+ element.product_code +"' class='myChk' id='ck-"+ element.product_code +"' onclick='' checked hidden ></div></div>";
+                       
+            }
+        }  
+
+        var rowCount = $("#recive-detail-table > tbody").children().length-1;
+        if (rowCount > 0) {
+            document.getElementById("confirmR").disabled = false;
+        }else{ 
+            document.getElementById("confirmR").disabled = true;
+        }
+
+                    
       }
 
+      function confirmRecive(){
+        if (confirm('ยืนยันรับ Stock ?')) {
+            var arrAn = [];  
+            var m = $('.myChk'); 
+            var arrLen = $('.myChk').length; 
+            
+            for ( var i= 0; i < arrLen ; i++){  
+                var  w = m[i];  
+                                
+                if (w.checked){  
+                    arrAn.push( {
+                    "product_code": w.value ,
+                    "QT": $("#qt-" + w.value).text(),
+                    "UM": "CR",
+                    "RecvStatus": true,
+                    "RecvRemark": ""
+                    } );  
+                    // alert($('#' + w.value).text() ) ;
+                    // console.log(w.value ); 
+                }
+            }   
 
-    </script>
+            var revcId = $('#set-reciveid').text();
+            var dataJ = JSON.stringify(arrAn);
+            let cksString = '{"Header":{"ReciveId":'+revcId+', "ShopCode":"<%= usercode%>","data":'+dataJ+'}}'
+            let xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/users/recive");
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.onload = () => console.log(xhr.responseText);
+                    xhr.send(cksString);
+            
+            
+            window.location.href = "/users/recive"
+
+        }
+
+        
+            
+      }
+
+    //   function arrayChk(){ 
+       
+    //     var arrAn = [];  
+    //     var m = $('.myChk'); 
+    //     var arrLen = $('.myChk').length; 
+        
+    //     for ( var i= 0; i < arrLen ; i++){  
+    //         var  w = m[i];  
+                             
+    //         if (w.checked){  
+    //             arrAn.push( {
+    //             "product_code": w.value ,
+    //             "QT": $("#qt-" + w.value).text(),
+    //             "UM": "CR",
+    //             "RecvStatus": true,
+    //             "RecvRemark": ""
+    //             } );  
+    //             // alert($('#' + w.value).text() ) ;
+    //             // console.log(w.value ); 
+    //         }
+    //     }   
+
+    //     var revcId = $('#set-reciveid').text();
+    //     var dataJ = JSON.stringify(arrAn);
+    //     let cksString = '{"Header":{"ReciveId":'+revcId+', "ShopCode":"<%= usercode%>","data":'+dataJ+'}}'
+    //      //   var cksStringJ = JSON.stringify(cksString)
+    //     //$('#set-reciveid').text(cksString);
+    //     //alert(cksString);
+
+    //     // var jj = '{"Header": { "ReciveId": 2,"data": [{"product_code": "39835","QT": 1,}]}}'
+    //     // alert(JSON.stringify(jj))
+
+    //     let xhr = new XMLHttpRequest();
+    //             xhr.open("POST", "/users/recive");
+    //             xhr.setRequestHeader("Accept", "application/json");
+    //             xhr.setRequestHeader("Content-Type", "application/json");
+    //             xhr.onload = () => console.log(xhr.responseText);
+    //             xhr.send(cksString);
+            
+
+
+    //         // var jsonfile = JSON.stringify(cksString);
+
+    //         // alert(jsonfile);
+      
+    //    // $("#objdata").val(myJsonString);
+    //    // $("#formobj").submit();
+
+
+    //     // console.log( 'result' + myJsonString);
+    //     // alert(myJsonString);
+    //     // return myJsonString;
+    //   }
+
+
+     </script>
+
+
 </body>
 
 </html>

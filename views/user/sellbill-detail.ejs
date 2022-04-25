@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Blank Page - Brand</title>
+    <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="../../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="../../assets/css/Data-Table-1.css">
+    <link rel="stylesheet" href="../../assets/css/Data-Table.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../../assets/css/Login-Form-Clean.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <% include nav %>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <% include nav-profile%>
+                <div class="container-fluid">
+                    <div class="d-flex flex-column" id="content-wrapper-1">
+                        <div class="row">
+                            <div class="col">
+                                <h1>รายละเอียดบิลขาย</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <header></header>
+                            </div>
+                        </div> 
+                        <div class="card-body">                     
+                            <div class="card-body">   
+                                <div class="card">
+                                    <table class="table table-borderless" style="border: 1px;">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col" colspan="2" style="font-size: large;">รายการขาย</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">เลขที่:</th>
+                                                <td><%=obj[0].OrderNumber%></td>
+                                              </tr>
+                                          <tr>
+                                            <th scope="row">วันที่:</th>
+                                            <td><%=obj[0].DateCreateOrder.toISOString().split('T')[0]%></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row">รหัสศูนย์:</th>
+                                            <td><%=obj[0].ShopCode%></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row">ช่องทางการขาย:</th>
+                                            <td><%=obj[0].SalesChannel%></td>
+                                          </tr>                                  
+                                          <tr>
+                                            <th scope="row">ช่องทางการชำระเงิน:</th>
+                                            <td><%=obj[0].PaymentMethod%></td>
+                                          </tr>                                  
+                                          <tr>
+                                            <th scope="row">ยอดเงิน:</th>
+                                            <td><%=obj[0].ItemAmount%></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row">โปรโมชั่น:</th>
+                                            <td>**</td>
+                                          </tr>                                  
+                                          <tr>
+                                            <th scope="row">สถานะ:</th>
+                                            <td><%=obj[0].OrderStatus%></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                                <br>                  
+                                <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0" id="dataTable">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th class="text-center">สินค้า</th>
+                                                <th class="text-center">จำนวน</th>
+                                                <th class="text-center">ราคา</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                     <%
+
+          
+                                            if(JSON.parse(obj[0].JsonData)[0].length > 0){
+                                            var i=1;
+                                            //DateCreateOrder
+                                            
+                                            JSON.parse(obj[0].JsonData)[0].forEach(function(data){
+                                      %>
+                                            <tr>
+                                       
+                                                <td ><%=data.id%> : <%=data.name%></td>
+                                                <td class="text-center"><%=data.Quantity%></td>
+                                                <td class="text-center"><%=data.Price%></td>
+                                            </tr>
+                                            <%  i++; }) %>
+                                            <% } else{ %>
+                                                <tr>
+                                                    <td colspan="3"><div align="center">No Data Found</div></td>
+                                                </tr>
+                                            <% } %>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr class="table-primary">
+                                                <td class="text-end">รวม</td>
+                                                <td class="text-center"><%=obj[0].ItemQuantity%></td>
+                                                <td class="text-center"><%=obj[0].ItemAmount%></td>
+                                                
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>                              
+                            </div>                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <footer class="text-center bg-white d-inline-flex mb-auto sticky-footer" style="margin: 1px;">
+        <div class="container text-center my-auto">
+            <div class="text-center my-auto copyright"><span class="text-center">Copyright © Brand 2022</span></div>
+        </div>
+    </footer>
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+    <script src="../../assets/js/DataTable---Fully-BSS-Editable.js"></script>
+    <script src="../../assets/js/theme.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $('#dtData').DataTable();
+      } );
+
+      $(document).ready(function() {
+        $('#dataTable').DataTable();
+      } );
+    </script>
+
+
+</body>
+
+</html>

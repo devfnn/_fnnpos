@@ -96,7 +96,7 @@
                                                                     <option value="Shopee Pay">Shopee Pay</option>
                                                                 </optgroup>
                                                             </select> 
-                                                            <button type="button" class="btn btn-primary my-cart-checkout btn-sm"  id="btn_completed" style="margin-right: 10px;" >Checkout</button></button><button class="btn btn-danger btn-sm link-light" type="submit">Clear&nbsp;&nbsp;<i class="fas fa-times"></i></button></div>
+                                                            <button type="button" class="btn btn-primary my-cart-checkout btn-sm"  id="btn_completed" style="margin-right: 10px;" >Checkout</button></button><button class="btn btn-danger btn-sm link-light my-cart-clear" >Clear&nbsp;&nbsp;<i class="fas fa-times"></i></button></div>
                                                             </form>
                                                          </div>
                                                     
@@ -283,14 +283,16 @@
     
       $(function () {
       
-      var goToCartIcon = function($addTocartBtn){
+        var goToCartIcon = function($addTocartBtn){
         var $cartIcon = $(".my-cart-icon");
-        
         var position = $cartIcon.position();
         
       }
-      
-            
+    //  $(document).ready(function () {
+       
+    //   $('.my-cart-btn').loadCart()
+    //     });
+       
          
       $('.my-cart-btn').myCart({
             
@@ -396,7 +398,16 @@
             
         
         //     $(document).ready(enableButton);
+        $('.my-cart-clear').on('click',function(){
             
+            var STORAGE_NAME = "__mycart";
+            localStorage[STORAGE_NAME] = [];
+            $("#my-cart-table").empty();
+
+            $("#my-cart-table").append(
+                '<div class="alert alert-danger" role="alert" >ไม่มีสินค้าในตะกร้า</div>'
+            );
+        });
     </script>
    <script>
             function enableButtons() {

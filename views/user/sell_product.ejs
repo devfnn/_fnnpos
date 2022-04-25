@@ -50,45 +50,12 @@
                                                         <div class="col-auto col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                             <p class="fs-4 m-0 fw-bold" style="color: rgb(0,0,0);">สินค้าในตะกร้า</p>
                                                         </div>
-                                                        <div class="col-auto col-sm-8 col-md-6 col-lg-8 col-xl-8 col-xxl-8 text-end">
-                                                            <form class="selected">         
-                                                                <select class="form-select-sm " id="select_one" name="Sellchannel"  >
-                                                                <optgroup label="ช่องทางการขาย" >
-                                                                    <option value="ช่องทางการขาย" selected>ช่องทางการขาย</option>
-                                                                    <option value="Grab">Grab</option>
-                                                                    <option value="Panda">Panda</option>
-                                                                    <option value="RobinHood">RobinHood</option>
-                                                                    <option value="GoJek">GoJek</option>
-                                                                    <option value="Offline">Offline</option>
-                                                                    <option value="LinePickUp">LinePickUp</option>
-                                                                    <option value="True Food">True Food</option>
-                                                                    <option value="LineMan">LineMan</option>
-                                                                    <option value="Shopee food" >Shopee food</option>
-                                                                    <option value="Shopteenee">Shopteenee</option>
-                                                                    <option value="Airasia">Airasia</option>
-                                                                </optgroup>
-                                                            </select>
-                                                            <select class="form-select-sm two"  id="select_two"  name="Paymedthod" onchange="enableButtons()">
-                                                                <optgroup label="ช่องทางการชำระเงิน">
-                                                                    <option value="ช่องทางการชำระเงิน" selected >ช่องทางการชำระเงิน</option>
-                                                                    <option value="เงินสด" >เงินสด</option>
-                                                                    <option value="E-payment">E-payment</option>
-                                                                    <option value="เงินสดคนละครึ่ง">เงินสดคนละครึ่ง</option>
-                                                                    <option value="Shopee Pay">Shopee Pay</option>
-                                                                </optgroup>
-                                                            </select> 
-                                                            <button type="button" class="btn btn-primary my-cart-checkout btn-sm"  id="btn_completed" style="margin-right: 10px;" >Checkout</button></button><button class="btn btn-danger btn-sm link-light my-cart-clear" >Clear&nbsp;&nbsp;<i class="fas fa-times"></i></button></div>
-                                                            </form>
-                                                         </div>
-                                                    
                                                     </div>
                                                 </div>
                                                 <div class="card-body" style="padding: 5px;">
                                                     <div class="table-responsive table mt-2" id="dataTable-2" role="grid" aria-describedby="dataTable_info">
                                                         <table class="table table-hover table-responsive" id="my-cart-table"></table>
-            
                                                     </div>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -125,7 +92,7 @@
                             </select> 
                                 <div style="width: 5px;"></div>
                                 <button type="button" class="btn btn-primary my-cart-checkout btn-sm"  id="btn_completed" style="margin: 1px;" disabled=true >Checkout</button></button>
-                                <button class="btn btn-danger btn-sm link-light" type="submit" style="margin: 1px;">Clear&nbsp;&nbsp;<i class="fas fa-times"></i></button>
+                                <button class="btn btn-danger btn-sm link-light my-cart-clear" type="submit" style="margin: 1px;">Clear&nbsp;&nbsp;<i class="fas fa-times"></i></button>
                             
                             </div>
                               
@@ -272,6 +239,7 @@
               var Paymedthod=document.getElementsByName("Paymedthod")[0];
               var Sellchannel=document.getElementsByName("Sellchannel")[0];
               checkoutString += "\n\n id \t name \t summary \t price \t quantity \t image path";
+              
               $.each(products, function(){
                // checkoutString += ("\n " + this.id + " \t " + this.name + " \t " + this.summary + " \t " + this.price + " \t " + this.quantity + " \t " + this.image);
                 
@@ -290,6 +258,7 @@
                     StockID:this.stockid,
                     ShopNameShort:this.shopnameshort,
                     Image:this.image,
+                    
 
                             };
                 ckString.push(cString);        
@@ -378,6 +347,8 @@
           });
           
         });
+
+
     
         // function enableButton() {
         //   // var all_statuses =  document.getElementById("select_one");
@@ -392,7 +363,8 @@
             
         
         //     $(document).ready(enableButton);
-        $('.my-cart-clear').on('click',function(){
+
+           $('.my-cart-clear').on('click',function(){
             
             var STORAGE_NAME = "__mycart";
             localStorage[STORAGE_NAME] = [];
@@ -402,8 +374,8 @@
                 '<div class="alert alert-danger" role="alert" >ไม่มีสินค้าในตะกร้า</div>'
             );
         });
-            
     </script>
+
    <script>
        // Select list disable and enable
             function enableButtons() {
@@ -419,21 +391,27 @@
                         } else document.getElementById("btn_completed").disabled = true;
                     }
                     }
+
+    <script>
+            function enableButtons() {
+
+                    var rowCount = $("#my-cart-table > tbody").children().length-2;
+                    //alert(rowCount);
+
                     var _sale_chanel = document.getElementById('select_one').value
                     var _payment_method = document.getElementById('select_two').value
 
-                    if (_sale_chanel != 0 && _payment_method != 0) {
+                    if (_sale_chanel != 0 && _payment_method != 0 && rowCount > 0) {
                         
                         document.getElementById("btn_completed").disabled = false;
                     }else{ 
 
                         document.getElementById("btn_completed").disabled = true;
                     }
-                   
-            
+
 
             $(document).ready(enableButtons);
-   </script>
+    </script>
    
 
 </body>

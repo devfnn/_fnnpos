@@ -27,7 +27,6 @@ router.get('/', async function(req, res, next) {
   }
 });
 
-
 router.get('/stock', async function(req, res, next) {
   if (req.session.loggedin) {  
     var _getBody = req.body
@@ -72,37 +71,41 @@ router.get('/recive', async function(req, res, next) {
     var _sql
 
 
-    // console.log('recv opt: ' + _opt)
+     console.log('recv opt: ' + _opt)
     // opt=all request: shopcode  confirm
 
 
     // call switch recivce
     switch(_opt){
       case 'show':
-        // var _shopcode = req.query.shopcode
-        _sql = "SELECT * FROM pos_online.pos_stocklist WHERE ShopCode = '"+ _shopcode +"';"
+        var _shopcode = req.query.shopcode
+        _sql = "SELECT * FROM pos_online.pos_stocklist WHERE ShopCode = '"+ _usercode +"';"
         _data = await get_mysql_data(_sql);
-        // console.log(_sql)
+        console.log(_sql)
         break;
       case 'detail':
-        var _reciveid = req.query.reciveid 
+        var _reciveid = req.query.recvid 
           // var _shopcode = req.query.shopcode
           _sql = "SELECT * FROM pos_online.pos_stocklist WHERE id = '"+ _reciveid +"';"
           _data = await get_mysql_data(_sql);
-          // console.log(_sql)
+          console.log(_sql)
           break;
       case 'confirm':
 
         // การรับสินค้าเข้าคลัง font ๖้องเอา jsondata เดิมแต่เพิ่มฟิว recvStatus, recvRemark เข้ามา เพื่อเช็คว่า กล่องไหนรับ กล่องไหนไม่รับ พร้อมเหตุผล ที่ไม่รับ
         // new json string ใหม่ง่ายสุด
-  
-          if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+      console.log('req.body.constructor', req.body.constructor, Object.keys(req.body).length)
+        //if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+          if(req.query.recid === 0) {
             // ไม่พบข้อมูลแจ้งเตือน status 0
             return res.status(404).send({status: 0, message: "Object missing"});
           }else{
             // พบข้อมูล check จำนวนแถวข้อมูลก่อนเข้าเงื่อนไขบันทึก
-              var _getBody = req.body.Header.data
+              var _getBody = req.body.Header
               var _data    
+
+            console.log('_getBody', _getBody)
+
               if (_getBody.length > 0) {
             
                 var _header = req.body.Header
@@ -157,7 +160,6 @@ router.get('/recive', async function(req, res, next) {
                 _notRecv > 0 ?_notReciveStatus=true:_notReciveStatus=false
 
                 var _updateStockListSQL = "UPDATE `pos_online`.`pos_stocklist` SET `ReceiveStatus` = 'recived', `NotReciveStatus` = "+_notReciveStatus+", `JsonDataAfterRecive` = '"+JsonDataAfterRecive+"', `ReciveCount` = '"+_recv+"', `NotReciveCount` = '"+ _notRecv+"', DateReceive = '"+_dateNow+"', RecivedBy = '"+req.session.usercode+"' WHERE (`id` = '"+_header.ReciveId+"');"
-
                 var _updateStockList = await get_mysql_data(_updateStockListSQL)
 
                 console.log('3. _updateStockListSQL: ', _updateStockListSQL,_updateStockList.affectedRows)
@@ -180,7 +182,7 @@ router.get('/recive', async function(req, res, next) {
       default:
         _sql = "SELECT * FROM pos_online.pos_stocklist WHERE ShopCode = '"+ _shopcode +"';"
         _data = await get_mysql_data(_sql);
-        console.log('df:')
+        console.log('df:',Object.keys(req.body).length,req.body.constructor, req.query.recid)
     }
   
     return res.render('./user/recive', { title: 'Stock Recive' , obj: _data , username: _username, usercode:_usercode});
@@ -188,10 +190,124 @@ router.get('/recive', async function(req, res, next) {
     // return res.status(200).send({status: 0, message: "Stock !"});
   }else{
 
-    return res.status(404).send({status: 0, message: "Pleate Login !"});
+    return res.render('./user/index', { title: 'Home User Login !' });
   }
 });
 
+router.post('/recive', async function(req, res, next){
+  if (req.session.loggedin || req.query.loggedin) {  
+    var _username = req.session.username
+    // การรับสินค้าเข้าคลัง font ๖้องเอา jsondata เดิมแต่เพิ่มฟิว recvStatus, recvRemark เข้ามา เพื่อเช็คว่า กล่องไหนรับ กล่องไหนไม่รับ พร้อมเหตุผล ที่ไม่รับ
+    // new json string ใหม่ง่ายสุด
+    // console.log('req.body.constructor')
+    //     console.log('req.body.constructor', req.body.constructor, Object.keys(req.body).length)
+        if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+            // ไม่พบข้อมูลแจ้งเตือน status 0
+            return res.status(404).send({status: 0, message: "Object missing"});
+          }else{
+            // พบข้อมูล check จำนวนแถวข้อมูลก่อนเข้าเงื่อนไขบันทึก
+            var _header = req.body.Header
+            var _headerData = req.body.Header.data // get สมาชิกของ Json header นั้นก็คือ json level ที่ 2 (D2)
+            var JsonDataAfterRecive = JSON.stringify(_headerData) // Convert Json String to Json Format เตรียมไว้เพื่อเอาไปเก็บหลังจากเพิ่ม stock เรียบร้อยแล้ว: JsonDataAfterRecive
+        
+
+            console.log('_getBody',_headerData.length)
+            //console.log('_getBodyData', _getBodyData, _getBodyData.length)
+            
+              if (_headerData.length > 0) {
+
+                //console.log('_headerData: ', _headerData)
+                //console.log('_datarowJson: ', _datarowJson)
+              
+
+
+                var _recv = 0 //ไม่รับ
+                var _notRecv = 0 // รับ
+                var _shopcode = _header.ShopCode
+                var _recvId = _header.ReciveId
+
+                var _getShopInfo = ''
+
+                console.log('_header[0].ShopCode',_header.ShopCode)
+
+                for (let index = 0; index < _headerData.length; index++) {
+                    const element = _headerData[index];
+                    // ค้นหา stock ด้วย productcode และ shopcode
+                    // 0. check ว่ารับไหม ไม่รับข้ามเลย
+                    //console.log('RecvStatus: ' + element.RecvStatus)
+                    if (element.RecvStatus) {
+                      _recv = _recv + 1
+                   
+                      var _getStockSQL = "SELECT * FROM pos_online.pos_stock WHERE ShopCode = '"+_shopcode+"'  AND ProductCode = '"+element.product_code+"'"
+                      var _getStock = await get_mysql_data(_getStockSQL)
+                      
+                      var _getProductSQL = "SELECT * FROM pos_online.pos_products WHERE ProductCode = '"+ element.product_code +"'"
+                      var _getProductData = await get_mysql_data(_getProductSQL) //query product เพื่อ คำนวนจำนวนชิ้นต่อกล่อง
+                      var _unitQuantity = _getProductData[0].UnitQuantity
+                      var _uniQ =  (_unitQuantity * element.QT)//เอาจำนวนที่ได้ * กับจำนวนที่กล่องที่ส่งมา
+                     
+                      
+
+
+                      console.log('_getProductSQL',_getProductSQL)
+                      console.log('UnitQuantity',_getProductData[0].UnitQuantity)
+                  
+                      // console.log('ele leng: ',_getStock.length , _getStockSQL)
+                      var _dateNow = moment(Date.now()).format('YYYY-MM-DD')
+
+                      if (_getStock.length === 0) {
+                          // 1. ไม่พบ new record in pos_stock
+                        
+                          var _insertStockSQL = "INSERT INTO `pos_online`.`pos_stock` (`DateCreateStock`, `ShopCode`, `ProductCode`, `OnHand`, `SaleQuantity`, `QuantityRevise`) VALUES ('"+_dateNow+ "', '"+_shopcode+"', '"+element.product_code+"', '"+_uniQ+"', '0', '0');"
+                          var  _insertStock = await get_mysql_data(_insertStockSQL)
+                          console.log('1. new stock: ', _insertStock.insertId)
+
+
+                      }else{ 
+                         // 2. พบ อัปเดท OnHan = OnHan + UnitQuantity
+                          console.log('element.UnitQuantity: ' , _uniQ)
+                          var _updateStockSQL = "UPDATE `pos_online`.`pos_stock` SET `OnHand` = `OnHand` + "+_uniQ+" WHERE (`ShopCode` = '"+_shopcode+"' AND `ProductCode` = '"+element.product_code+"');"
+
+                          var _updateStock = await get_mysql_data(_updateStockSQL)
+                          console.log('2. update stock: ', _updateStock.affectedRows, _updateStockSQL)
+                      }
+                  
+                    } else {
+                      _notRecv = _notRecv + 1
+                    }
+                    
+                }   
+
+                // 3. ปรับ status pos_stocklist to 'recived' by recv_id
+                // check ถ้า not recive มากกว่า 0 ให้บันทึก NotReciveStatus เป็น true เพื่อบอกให้รู้ว่ารายการ stock นี้มีการกดไม่รับสินค้า สาเหตุอยู่ใน new json string 
+                var _notReciveStatus = false
+                _notRecv > 0 ?_notReciveStatus=true:_notReciveStatus=false
+
+                var _updateStockListSQL = "UPDATE `pos_online`.`pos_stocklist` SET `ReceiveStatus` = 'recived', `NotReciveStatus` = "+_notReciveStatus+", `JsonDataAfterRecive` = '"+JsonDataAfterRecive+"', `ReciveCount` = '"+_recv+"', `NotReciveCount` = '"+ _notRecv+"', DateReceive = '"+_dateNow+"', RecivedBy = '"+req.session.usercode+"' WHERE (`id` = '"+_recvId+"');"
+                var _updateStockList = await get_mysql_data(_updateStockListSQL)
+
+                console.log('3. _updateStockListSQL: ', _updateStockListSQL,_updateStockList.affectedRows)
+                var _getStockSQL = "SELECT * FROM vw_stock WHERE ShopCode = '"+_shopcode+"'"
+                _data = await get_mysql_data(_getStockSQL)
+
+                // 4. add running sti in pos_member.StockNumber
+                  // 1. get status 'sending' 
+                  // 2. get last running StockNUmber
+                  // 3. new StockNumber exp. 1 : 1+1 = 2 new StockNumber = 2
+                  // 4. update pos_member.StockNumber = new StockNUmber
+                  // 5. final StockListNumber = 'sti'  + shopname + new StockNUmber
+                  // 6. update pos_stocklist.StockListNumber = final StockListNumber 
+
+             }
+            }
+             
+            }else{
+              return res.render('./user/index', { title: 'Home User Login !' });
+            }  
+                
+  }
+             
+);
 
 router.get('/report', async function(req, res, next) {
   if (req.session.loggedin) {    
@@ -228,38 +344,6 @@ router.get('/bill', async function(req, res, next) {
   }
 });
 
-
-router.get('/sellbill', async function(req, res, next) {
-  if (req.session.loggedin) {    
-    var _data
-    var _username = req.session.username
-    var _usercode = req.session.usercode
-    var _getJsonBody = req.body
-    console.log(_usercode)
-
-    var _getSellBillSQL = "SELECT * FROM pos_online.pos_saleorderlist WHERE ShopCode = '"+_usercode+"'"
-    _data = await get_mysql_data(_getSellBillSQL)
-
-
-    res.render('./user/sellbill', { title: 'Report' , obj: _data, username: _username, usercode:_usercode});
-  }else{
-
-    return res.render('./user/index', { title: 'Home User Login !' });
-  }
-});
-
-
-router.get('/slip', async function(req, res, next) {
-  if (req.session.loggedin) {    
-    var _data = []
-
-    res.render('./user', { title: 'Report' , obj: _data, username: _username, usercode:_usercode});
-  }else{
-
-    return res.render('./user/index', { title: 'Home User Login !' });
-  }
-});
-
 router.get('/sell', async function(req, res, next) {
   if (req.session.loggedin) {    
     var _username = req.session.username
@@ -290,7 +374,7 @@ router.get('/sell', async function(req, res, next) {
 router.post('/sell', async function(req, res, next) {
   if (req.session.loggedin || req.query.loggedin) {    
     // check data json body (ข้อมูลการขายที่มาจาก font ส่งมาเป็น body:json)
-    
+    console.log('req.body.constructor', req.body.constructor, Object.keys(req.body).length)
     if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
 
       // ไม่พบข้อมูลแจ้งเตือน status 0
@@ -316,6 +400,8 @@ router.post('/sell', async function(req, res, next) {
           var _product_count = _header.product_count
           var _pay_method = _header.pay_method
     
+          console.log('_header',_header.pay_method)
+       
           //0. check running
 
           var _getUserSQL = "SELECT * FROM `pos_online`.`pos_member` WHERE ShopCode = '"+ _shopcode +"'"
@@ -383,8 +469,9 @@ router.post('/sell', async function(req, res, next) {
         //  3.2 if find update sum amount else insert new row
 
         // ถ้าเป็นเงินสด บันทึกข้อมูล saledailydetail
+        console.log('pay_method',_pay_method)
 
-          if (_pay_method === 'cash' || 'เงินสด') {
+          if (_pay_method === 'เงินสด') {
             var dateNow = moment(Date.now()).format('YYYY-MM-DD')
             console.log('moment date: ' + dateNow)
     
@@ -431,6 +518,56 @@ router.post('/sell', async function(req, res, next) {
     return res.status(500).send({status: 0, message: "Not Login !"});
   }
 });
+
+router.get('/sellbill', async function(req, res, next) {
+  if (req.session.loggedin) {    
+    var _data
+    var _username = req.session.username
+    var _usercode = req.session.usercode
+    var _getJsonBody = req.body
+    console.log(_usercode)
+
+    var _getSellBillSQL = "SELECT * FROM pos_online.pos_saleorderlist WHERE ShopCode = '"+_usercode+"'"
+    _data = await get_mysql_data(_getSellBillSQL)
+
+
+    res.render('./user/sellbill', { title: 'Report' , obj: _data, username: _username, usercode:_usercode});
+  }else{
+
+    return res.render('./user/index', { title: 'Home User Login !' });
+  }
+});
+
+router.get('/sellbill-detail', async function(req, res, next) {
+  if (req.session.loggedin) {    
+    var _data
+    var _username = req.session.username
+    var _usercode = req.session.usercode
+    var _billid = req.query.bill
+    console.log('_billid', _billid)
+
+    var _getSellBillSQL = "SELECT * FROM pos_online.pos_saleorderlist WHERE id = '"+_billid+"'"
+    _data = await get_mysql_data(_getSellBillSQL)
+
+
+    res.render('./user/sellbill-detail', { title: 'Report detail' , obj: _data, username: _username, usercode:_usercode});
+  }else{
+
+    return res.render('./user/index', { title: 'Home User Login !' });
+  }
+});
+
+router.get('/slip', async function(req, res, next) {
+  if (req.session.loggedin) {    
+    var _data = []
+
+    res.render('./user', { title: 'Report' , obj: _data, username: _username, usercode:_usercode});
+  }else{
+
+    return res.render('./user/index', { title: 'Home User Login !' });
+  }
+});
+
 
 const upload = multer({
   // dest:"/path/to/temporary/directory/to/store/uploaded/files"

@@ -80,7 +80,7 @@
     var setAllProducts = function (products) {
       localStorage[STORAGE_NAME] = JSON.stringify(products);
     };
-    var addProduct = function (id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockid,shopnameshort,image) {
+    var addProduct = function (id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image) {
       var products = getAllProducts();
       products.push({
         id:id,
@@ -92,7 +92,7 @@
         salequantity:salequantity,
         quantityrevise:quantityrevise,
         stockin:stockin,
-        stockid:stockid,
+        stockiD:stockiD,
         shopnameshort:shopnameshort,
         image:image
       });
@@ -124,7 +124,7 @@
       setAllProducts(products);
       return true;
     };
-    var setProduct = function (id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockid,shopnameshort,image) {
+    var setProduct = function (id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image) {
       if (typeof id === "undefined") {
         console.error("id required");
         return false;
@@ -148,7 +148,7 @@
      // summary = typeof summary === "undefined" ? "" : summary;
 
       if (!updatePoduct(id, quantity, true)) {
-        addProduct(id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockid,shopnameshort,image);
+        addProduct(id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image);
       }
     };
     
@@ -341,13 +341,11 @@
       var id = $(this).closest("tr").data("id");
       var valuemax = $(this).closest("tr").data("max");
       var quantity = $(this).val();
-
-      // ตั้งค่า ให้ใส่ตัวเลขได้ไม่เกินที่มี สต๊อกอยู่
       $(this).val(Math.min(valuemax, Math.max(1, $(this).val())));
       //$(this).val(Math.max(valuemax,$(this).val()));
-      // console.log(id);
-      // console.log(price);
-      // console.log(valuemax);
+      console.log(id);
+      console.log(price);
+      console.log(valuemax);
       $(this).parent("td").next("." + classProductTotal).text( MathHelper.getRoundedNumber(price * quantity));
       ProductManager.updatePoduct(id, quantity);
 
@@ -411,13 +409,13 @@
       var salequantity = $target.data('salequantity');
       var quantityrevise = $target.data('quantityrevise');
       var stockin = $target.data('stockin');
-      var stockid = $target.data('stockid');
+      var stockiD = $target.data('stockiD');
       var shopnameshort = $target.data('shopnameshort');
       var image = $target.data('image');
       
      // var $cartTable = $("#" + idCartTable); 
 
-      ProductManager.setProduct(id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockid,shopnameshort,image);
+      ProductManager.setProduct(id,name,shopcode,price,quantity,onhand,salequantity,quantityrevise,stockin,stockiD,shopnameshort,image);
       $cartBadge.text(ProductManager.getTotalQuantity());
 
       options.afterAddOnCart(ProductManager.getAllProducts(), ProductManager.getTotalPrice(), ProductManager.getTotalQuantity());
