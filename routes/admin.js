@@ -34,6 +34,18 @@ router.get('/', function(req, res, next) {
     }
   });
 
+  router.get('/add_product', async function(req, res, next) {
+    if (req.session.loggedin) {    
+      var _username = ''
+      var _usercode = ''
+      var _data = []
+  
+      res.render('./admins/Add_Send_stock', { title: 'Product Management' , obj: _data, username: _username, usercode:_usercode});
+    }else{
+  
+      return res.render('./admins/index', { title: 'Admin Login !' });
+    }
+  });
   // http://localhost:3000/auth
 router.post('/auth', async function(req, res) {
   var sess
