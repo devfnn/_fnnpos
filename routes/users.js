@@ -66,7 +66,7 @@ router.get('/recive', async function(req, res, next) {
     var _opt = req.query.opt // get option type
     // var _id = req.body.Header.ReciveId //get in json body
     // var _shopcode = req.session.usercode
-    var _shopcode = '11111' 
+    var _shopcode = '76110' 
     var _data
     var _sql
 

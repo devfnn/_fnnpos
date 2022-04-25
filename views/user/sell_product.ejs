@@ -148,7 +148,7 @@
                                                 <tr>
                                                     <td><img class="rounded-circle me-2" width="50" height="50" src="../../assets/img/products/<%= data.ProductCode %>.png"></td>
                                                     <td style="font-size: 14px;"><%=data.ProductName%>: <%=data.ProductCode%></td>
-                                                    <td class="text-center" style="font-size: 14px;">10</td>
+                                                    <td class="text-center" style="font-size: 14px;"><%=data.ProductPrice%></td>
                                                      <!-- เพิ่มข้อมูลสินค้าด้วน data-ชนิดของค่าที่จะใส่ -->
                                                     <td class="text-center"><button class="btn btn-primary btn-sm my-cart-btn my-cart-icon" type="submit" style="margin-right: 10px;margin-bottom: 5px;margin-left: 5px;" data-id="<%=data.ProductCode%>" data-name="<%=data.ProductName%>" data-shopcode="<%=data.ShopCode%>" data-price="<%=data.ProductPrice%>" data-quantity="1" data-onhand="<%= data.OnHand %>" data-salequantity="<%= data.SaleQuantity %>" data-quantityrevise="<%= data.QuantityRevise %>" data-stockin="<%= data.StockIn %>" data-stockiD="<%= data.StockID %>" data-shopnameshort="<%= data.ShopNameShort %>" data-image="<%= data.ProductCode %>.png">Add Cart&nbsp;&nbsp;<i class="fa fa-cart-plus"></i></button></td>
                                                 </tr>
@@ -375,11 +375,29 @@
             );
         });
     </script>
+
+   <script>
+       // Select list disable and enable
+            function enableButtons() {
+                    var Sellchannel = document.body.querySelectorAll(".selected > .two");
+                    var option_one = "ช่องทางการขาย";
+                    var option_two = "ช่องทางการชำระเงิน";
+                    var Paymedthod=document.getElementsByName("Paymedthod")[0];
+
+                    for (var j = 0; j < Sellchannel.length; j++) {
+                       // console.log(j + " This will work 2222")
+                        if (Sellchannel[j].value != option_two && Paymedthod.value != option_one) {
+                        document.getElementById("btn_completed").disabled = false;
+                        } else document.getElementById("btn_completed").disabled = true;
+                    }
+                    }
+
     <script>
             function enableButtons() {
 
                     var rowCount = $("#my-cart-table > tbody").children().length-2;
                     //alert(rowCount);
+
                     var _sale_chanel = document.getElementById('select_one').value
                     var _payment_method = document.getElementById('select_two').value
 
@@ -390,7 +408,7 @@
 
                         document.getElementById("btn_completed").disabled = true;
                     }
-            }
+
 
             $(document).ready(enableButtons);
     </script>
